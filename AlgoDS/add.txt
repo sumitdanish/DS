@@ -1,0 +1,19 @@
+10
+sara
+sam
+sean
+ajay
+mira
+jane
+maria
+rahul
+sapna
+rohit
+sara sam
+sara ajay
+sam sean
+sam mira
+mira jane
+jane mira
+rahul sapna
+sapna rohit
