@@ -21,10 +21,10 @@ public class IntervalOverLappingProblem {
 				intervalList.add(new Inteval(Integer.parseInt(s[0]),Integer.parseInt(s[1])));
 			}
 			Collections.sort(intervalList,new StartPointShorting());
-			for(Inteval i : intervalList)
-			{
-				System.out.println("{"+i.startTime+","+i.endTime+"}");
-			}
+			// for(Inteval i : intervalList)
+			// {
+			// 	System.out.println("{"+i.startTime+","+i.endTime+"}");
+			// }
 		}
 		catch(Exception ex)
 		{
