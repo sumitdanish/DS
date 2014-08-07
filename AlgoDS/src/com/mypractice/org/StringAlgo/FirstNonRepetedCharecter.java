@@ -37,10 +37,6 @@ public class FirstNonRepetedCharecter {
 					break;
 				}
 			}
-			for(int l=0;l<arr.length;l++)
-			{
-				//System.out.println(arr[l]+","+str.charAt(l));
-			}
 			return count+","+String.valueOf(ch); 
 		}
 		catch(Exception ex)
