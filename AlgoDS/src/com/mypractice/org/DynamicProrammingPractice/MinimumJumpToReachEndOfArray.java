@@ -1,39 +1,92 @@
 package com.mypractice.org.DynamicProrammingPractice;
 
-public class MinimumJumpToReachEndOfArray {
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.LinkedHashSet;
+import java.util.Scanner;
+import java.util.Set;
 
+public class MaximumLengthChainofPairs {
+
+	/**
+	 * @param args
+	 */
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		int[] a={2,3,1,1,4};
-		System.out.println(new MinimumJumpToReachEndOfArray().minimunDistance(a,a.length)); 
-
-	}
-	
-	public int minimunDistance(int[] a,int length)
-	{
-		int i=0; 
-		int count=0;
-		int min=0;
-		for(i=0;i<length;i++)
+		try
 		{
-			count++;
-			min=0;
-			for(int j=0;j<a[i];j++)
+			ArrayList<ChainOfPairs> al = new ArrayList<ChainOfPairs>();
+			Set<ChainOfPairs> setCh = new LinkedHashSet<ChainOfPairs>();
+			System.out.println("Enter the number of chain of pairs");
+			int numberOfPairs=0;
+			Scanner sc = new Scanner(System.in);
+			numberOfPairs = sc.nextInt();
+			System.out.println("Enter the value of chain of pairs (firstValue,scondValue)");
+			for(int i=0;i<numberOfPairs;i++)
 			{
-				if(min<=j+a[j])
+				String[] s = sc.next().split(",") ;
+				al.add(new ChainOfPairs(Integer.parseInt(s[0]),Integer.parseInt(s[1]))); 
+			}
+			Collections.sort(al,new SecondPointShorting());
+			for(ChainOfPairs ch : al)
+			{
+				System.out.println(ch.firstPoint+","+ch.secondPoint);
+			}
+			int[] maxCL = new int[al.size()];
+			for(int p=0;p<al.size();p++)
+			{
+				maxCL[p]=0;
+			}
+			for(int p=0;p<numberOfPairs;p++)
+			{
+				int maxLCS=0;
+				for(int i=p+1;i<numberOfPairs;i++)
 				{
-					min=j+a[j];
+					if((al.get(p).secondPoint<=al.get(i).firstPoint))
+					{
+						maxLCS++;
+						//System.out.println(p+" > "+i+" < "+(maxCL[i]+1));
+						maxCL[p]=maxLCS;
+					}
 				}
 			}
-			if(min==0)
+			int max=0;
+			for(int l=0;l<al.size();l++)
 			{
-				return Integer.MAX_VALUE;
+				if(max<maxCL[l])
+				{
+					max=maxCL[l];
+				}
 			}
-			i=i+min;
+			System.out.println(max);
 		}
-		System.out.println(i+" : "+min+" : "+count);
-		return count+1;
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+		}
+
 	}
 	
+}
+class SecondPointShorting implements Comparator<ChainOfPairs>
+{
+
+	@Override
+	public int compare(ChainOfPairs o1, ChainOfPairs o2) {
+		// TODO Auto-generated method stub
+		return o1.secondPoint-o2.secondPoint;
+	}
 	
+}
+class ChainOfPairs
+{
+	int firstPoint;
+	int secondPoint;
+	public ChainOfPairs(int firstPoint, int secondPoint) {
+		this.firstPoint = firstPoint;
+		this.secondPoint = secondPoint;
+	}
+
 }
