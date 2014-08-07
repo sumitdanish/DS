@@ -35,11 +35,11 @@ public class MaximumLengthChainofPairs {
 			{
 				maxCL[p]=1;
 			}
-			for(int p=0;p<al.size();p++)
+			for(int p=1;p<al.size();p++)
 			{
-				for(int i=p;i<al.size();i++)
+				for(int i=0;i<p;i++)
 				{
-					if((al.get(p).secondPoint<al.get(i).firstPoint)&&maxCL[p]<maxCL[i]+1)
+					if((al.get(p).firstPoint>al.get(i).secondPoint)&&maxCL[p]<maxCL[i]+1)
 					{
 						//System.out.println("{"+al.get(p).firstPoint+","+al.get(p).secondPoint+"}");
 						maxCL[p]=maxCL[i]+1;
