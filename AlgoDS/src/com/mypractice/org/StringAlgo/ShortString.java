@@ -5,6 +5,13 @@ public class ShortString {
 	/**
 	 * @param args
 	 */
+	 
+	 
+	 /*
+	 * In this string shorting capital letter comes first becz shorting is 
+	 * done on the bassis of ascii value of charecter
+	 * 
+	 */
 	public static void main(String[] args) {
 		String s = "hell_is_well";
 		System.out.println(new ShortString().shortString(s));
