@@ -9,6 +9,11 @@ public class WERTYProblem {
 	/**
 	 * @param args
 	 */
+	 
+	 /*
+		*	 Problem is to replace each letter symbol by the one immediately to its left on the QWERTY keyboard...
+		*	 i am taking only alphabatical word.. u can do the same for rest special charecter
+	 */
 	public static void main(String[] args) {
 		try
 		{
