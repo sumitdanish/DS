@@ -17,31 +17,10 @@ public class ArrangingPatternInArray {
 		
 		try
 		{
-			int[] a = {1,2,3,4,5,6};
-			int temp=0;
-			int[] a1 = new int[a.length];
-			for(int i=0;i<a.length;i++)
+			int[] a = {1,2,3,4,5,6,7,8};
+			for(int i : new ArrangingPatternInArray().getDesiredOutPut(a))
 			{
-				a1[i]=0;
-			}
-			a1[0]=a[0];
-			for(int i=0;i<a.length;i++)
-			{
-				int j=0;
-				while(j<2)
-				{
-					if(a[i+j]!=a[j+1])
-					{
-						temp=a[i+j];
-						a[i+j]=a[j+1];
-						a[j+1]=temp;
-					}
-					j++;
-				}
-			}
-			for(int i=0;i<a.length;i++)
-			{
-				System.out.print(a[i]+",");
+				System.out.print(i+",");
 			}
 		}
 		catch(Exception ex)
@@ -49,6 +28,50 @@ public class ArrangingPatternInArray {
 			ex.printStackTrace();
 		}
 
+	}
+	
+	
+	private int[] getDesiredOutPutWithOutShorted(int[] a)
+	{
+		try
+		{
+			//int temp=0;
+			return a;
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+		}
+		return null;
+	}
+	
+	
+	
+	
+	
+	// When Array Is Allready Shorted Tyhen That Logic Will Work time complexity O(n)
+	private int[] getDesiredOutPut(int[] a)
+	{
+		try
+		{
+			//int temp=0;
+			for(int i=0;i<a.length-2;i++)
+			{
+				if(a[i]<a[i+1]&&a[i+2]>a[i+1]&&a[i+2]>a[i])
+				{
+					int temp=a[i+2];
+					a[i+2]=a[i+1];
+					a[i+1]=temp;
+				}
+				
+			}
+			return a;
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+		}
+		return null;
 	}
 
 }
