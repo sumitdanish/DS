@@ -27,10 +27,12 @@ public class LinkedListImpl {
 			l.insertNodeAfterAnyNode(22,23);
 			//l.print();
 			//l.replaceOneNodeFromAnotherNode(21,39);
-			l.print();
+			
 //			l.deleteNode(21);
 //			l.deleteNode(12);
 			//l.swapTwoDiffrentNode(3,5);
+			//l.print();
+			l.reverseInSomeSpecificPart(4);
 			//l.printHalfNode(21);
 //			LinkListNode l1 = l.getNode(3);
 //			System.out.println(l1.getNodeData());
@@ -257,7 +259,40 @@ public class LinkedListImpl {
 	}
 	
 	
-	private LinkListNode reverseLinkListNode()
+	private LinkListNode reverseInSomeSpecificPart(int nodeIndex)
+	{
+		try
+		{
+//			LinkListNode tempNode = listNode;
+//			LinkListNode tempNode2 = listNode;
+//			for(int i=0;i<nodeIndex;i++)
+//			{
+//				tempNode = tempNode.getNextLink();
+//				tempNode2 = tempNode2.getNextLink();
+//			}
+//			LinkListNode tempNode1 = this.reverseLinkListNode(tempNode);
+//			while(tempNode1!=null)
+//			{
+//				System.out.print(tempNode1.getNodeData()+"-->");
+//				tempNode1=tempNode1.getNextLink();
+//			}
+//			System.out.println();
+//			//tempNode=this.reverseLinkListNode(tempNode);
+//			while(tempNode2!=null)
+//			{
+//				System.out.print(tempNode2.getNodeData()+"-->");
+//				tempNode2=tempNode2.getNextLink();
+//			}
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+		}
+		return null;
+	}
+	
+	
+	private LinkListNode reverseLinkListNode(LinkListNode listNode)
 	{
 		try
 		{
@@ -307,7 +342,7 @@ public class LinkedListImpl {
 			LinkListNode temp = tempNode_pre.getNextLink();
 			tempNode_pre.setNextLink(tempNode1_pre.getNextLink());
 			tempNode1_pre.setNextLink(temp);
-			
+			//listNode=tempNode_pre;
 			//System.out.println(tempNode1.getNodeData()+" : "+tempNode.getNodeData());
 			
 		}
@@ -373,7 +408,7 @@ public class LinkedListImpl {
 	
 	private void print()
 	{
-		LinkListNode indexNode1=listNode;
+		LinkListNode indexNode1=this.reverseLinkListNode(listNode);
 		while(indexNode1!=null)
 		{
 			System.out.print(indexNode1.getNodeData()+"-->");
