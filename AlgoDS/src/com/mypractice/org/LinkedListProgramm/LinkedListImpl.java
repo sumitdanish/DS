@@ -26,10 +26,11 @@ public class LinkedListImpl {
 			l.insertNodeAfterAnyNode(21,22);
 			l.insertNodeAfterAnyNode(22,23);
 			//l.print();
-			//l.replaceOneNodeFromAnotherNode(21,25);
+			//l.replaceOneNodeFromAnotherNode(21,39);
+			l.print();
 //			l.deleteNode(21);
 //			l.deleteNode(12);
-			l.swapTwoDiffrentNode(3,5);
+			//l.swapTwoDiffrentNode(3,5);
 			//l.printHalfNode(21);
 //			LinkListNode l1 = l.getNode(3);
 //			System.out.println(l1.getNodeData());
@@ -239,11 +240,11 @@ public class LinkedListImpl {
 				i++;
 				if(tempNode1.getNextLink().getNodeData()==olderNodeValOrNodeIndex)
 				{
-					LinkListNode newNode = new LinkListNode(newNodeVal,null);
-					tempNode2=tempNode1.getNextLink();
-					newNode.setNextLink(tempNode2.getNextLink());
-					tempNode2.setNextLink(newNode);
-					tempNode1.setNextLink(tempNode2.getNextLink());
+//					LinkListNode newNode = new LinkListNode(newNodeVal,null);
+//					tempNode2=tempNode1.getNextLink();
+//					newNode.setNextLink(tempNode2.getNextLink());
+//					tempNode2.setNextLink(newNode);
+					tempNode1.getNextLink().setNodeData(newNodeVal);
 					break;
 				}
 				tempNode1=tempNode1.getNextLink();
@@ -372,7 +373,7 @@ public class LinkedListImpl {
 	
 	private void print()
 	{
-		LinkListNode indexNode1=this.reverseLinkListNode();
+		LinkListNode indexNode1=listNode;
 		while(indexNode1!=null)
 		{
 			System.out.print(indexNode1.getNodeData()+"-->");
