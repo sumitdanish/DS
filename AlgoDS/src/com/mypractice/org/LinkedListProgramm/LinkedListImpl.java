@@ -254,29 +254,60 @@ public class LinkedListImpl {
 	}
 	
 	
+	
+	private LinkListNode reverseAlternateNode(LinkListNode listNode,int nodeIndex)
+	{
+		try
+		{
+			
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+		}
+		return null;
+	}
+	
+	
+	
+	
+	
 	private LinkListNode reverseInSomeSpecificPart(LinkListNode listNode,int nodeIndex)
 	{
 		try
 		{
 			LinkListNode tempNode=null;
+			/*
+			 * The two variable tempNode1 and tempNode11 have major role for this action
+			 * tempNode1--> initially it pointing to the second node of the listNode. becz at the time of reversing the head will get to null so for avoiding this one we are using 
+			 * tempNode11 which is pointing to headNode; becz we have to take care for head node at the time of reversing some number of node. we can use tempNode1 also problem is 
+			 * that we can miss head node also.
+			 * 
+			 * 
+			 */
 			LinkListNode tempNode1=listNode.getNextLink();
-			int count=0;
+			LinkListNode tempNode11=listNode;
+			int count=1;
 			/*  This loop will reverse the linked list from 0 to nodeIndex and head of the reverse list will get store into tempNode
 			 *  after reversing the linkList to nodeIndex, the remaning linkList i.e from nodeIndex+1 to till the end of original linkList 
 			 *  , the head of that linkList will get store in to tempNode1.
 			*/
+			while(count<=nodeIndex)
+			{
+				
+				tempNode11=tempNode11.getNextLink();
+				count++;
+			}
+			count=1;
 			while(tempNode1!=null&&count<=nodeIndex)
 			{
-				count++;
 				listNode.setNextLink(tempNode);
 				tempNode=listNode;
 				listNode=tempNode1;
 				tempNode1=tempNode1.getNextLink();
+				count++;
 			}
 			LinkListNode ll = tempNode;
-			LinkListNode ll1 = tempNode;
-			
-			
 			/*
 			 * This loop will go to end of reversed linkList and then end of this link part will connect with head part of the tempNode1
 			 * then ll1 which is denoting the  head part of the tempNode, will get assign to temoNOde1...
@@ -285,9 +316,9 @@ public class LinkedListImpl {
 			{
 				ll=ll.getNextLink();
 			}
-			ll.setNextLink(tempNode1);
-			tempNode1=ll1;
-			return tempNode1;
+			ll.setNextLink(tempNode11);
+		    tempNode11=tempNode;
+			return tempNode11;
 		}
 		catch(Exception ex)
 		{
@@ -354,9 +385,6 @@ public class LinkedListImpl {
 			LinkListNode temp = tempNode_pre.getNextLink();
 			tempNode_pre.setNextLink(tempNode1_pre.getNextLink());
 			tempNode1_pre.setNextLink(temp);
-			//listNode=tempNode_pre;
-			//System.out.println(tempNode1.getNodeData()+" : "+tempNode.getNodeData());
-			
 		}
 		catch(Exception ex)
 		{
@@ -420,10 +448,5 @@ public class LinkedListImpl {
 			System.out.print(indexNode1.getNodeData()+"-->");
 			indexNode1=indexNode1.getNextLink();
 		}
-		//System.out.println(size);
-		//System.out.println(this.getNode(3).getNodeData());
 	}
-	
-	
-	
 }
