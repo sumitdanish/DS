@@ -255,11 +255,28 @@ public class LinkedListImpl {
 	
 	
 	
-	private LinkListNode reverseAlternateNode(LinkListNode listNode,int nodeIndex)
+	private LinkListNode reverseKthAlternateNode(LinkListNode listNode,int k)
 	{
 		try
 		{
+			LinkListNode current = listNode;
+			LinkListNode next = null;
+			LinkListNode previous = null;
+			int count=0;
+			while(current!=null&&count<3)
+			{
+				next=current.getNextLink();
+				current.setNextLink(previous);
+				previous = current;
+				current = next;
+				count++;
+			}
+			if(listNode!=null)
+			{
+				listNode.setNextLink(this.reverseKthAlternateNode(next, k));
+			}
 			
+			return previous;
 		}
 		catch(Exception ex)
 		{
@@ -285,6 +302,12 @@ public class LinkedListImpl {
 			 * 
 			 * 
 			 */
+			
+			LinkListNode tempNode2 = listNode;
+			for(int i=0;i<nodeIndex;i++)
+			{
+				tempNode2=tempNode2.getNextLink();
+			}
 			LinkListNode tempNode1=listNode.getNextLink();
 			LinkListNode tempNode11=listNode;
 			int count=1;
@@ -294,7 +317,6 @@ public class LinkedListImpl {
 			*/
 			while(count<=nodeIndex)
 			{
-				
 				tempNode11=tempNode11.getNextLink();
 				count++;
 			}
@@ -318,7 +340,8 @@ public class LinkedListImpl {
 			}
 			ll.setNextLink(tempNode11);
 		    tempNode11=tempNode;
-			return tempNode11;
+		    tempNode=tempNode11;
+			return tempNode;
 		}
 		catch(Exception ex)
 		{
@@ -336,7 +359,7 @@ public class LinkedListImpl {
 			LinkListNode tempNode=null;
 			LinkListNode tempNode1=listNode.getNextLink();
 			int count=0;
-			while(tempNode1!=null&&count<i)
+			while(tempNode1!=null/*&&count<i*/) // Here if u remove the commented part then the reversal of the node will happen till the i'th from the beggning of the List 
 			{
 				listNode.setNextLink(tempNode);// Here we are making head node as tail node so head node of listNode is null becz tempNode=null (initially)
 				tempNode=listNode;
@@ -351,7 +374,7 @@ public class LinkedListImpl {
 			}
 			
 			listNode=tempNode;
-			return tempNode;
+			return listNode;
 		}
 		catch(Exception ex)
 		{
@@ -442,7 +465,9 @@ public class LinkedListImpl {
 	
 	private void print()
 	{
-		LinkListNode indexNode1=this.reverseInSomeSpecificPart(listNode,2);
+		//LinkListNode indexNode1=this.reverseInSomeSpecificPart(listNode,3);
+		//LinkListNode indexNode1=this.reverseLinkListNode(listNode);
+		LinkListNode indexNode1=this.reverseKthAlternateNode(listNode,1);
 		while(indexNode1!=null)
 		{
 			System.out.print(indexNode1.getNodeData()+"-->");
@@ -450,4 +475,3 @@ public class LinkedListImpl {
 		}
 	}
 }
- 
