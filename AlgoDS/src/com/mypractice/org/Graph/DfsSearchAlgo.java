@@ -1,82 +1,88 @@
-package com.mypractice.org.Graph;
+package com.mypractice.org.shorting;
 
-import java.util.Scanner;
-import java.util.Stack;
-
-public class DfsSearchAlgo {
+public class MergeShortAlgo {
 
 	
-	
-	private Stack<Integer> stack;
-	
-	
-	public DfsSearchAlgo()
-	{
-		stack = new Stack<Integer>();
+	private int[] array;
+	private int[] temp;
+	int number;
+	public int[] getArray() {
+		return array;
 	}
-	
-	public void dfSearch(int[][] addJecencyMattrix,int source)
-	{
-		int numberOfNode = addJecencyMattrix[source].length-1;
-		int element = source;
-		int i=element;
-		int[] visited = new int[addJecencyMattrix[source].length];
-		visited[i]=1;
-		stack.push(source);
-		while(!stack.isEmpty())
-		{
-			element = stack.peek();
-			i=element;
-			while(i<=numberOfNode)
-			{
-				if(addJecencyMattrix[element][i]==1&&visited[i]==0)
-				{
-					stack.push(i);
-					element=i;
-					visited[i]=1;
-					i=1;
-					System.out.print(element+"\t");
-					continue;
-				}
-				i++;
-			}
-			stack.pop();
-		}
+
+	public void setArray(int[] array) {
+		this.array = array;
+		temp = new int[array.length];
+		mergeShort(0,array.length-1);
 	}
 	
 	
 	
 	
-	public static void main(String[] args) {
-		// 
-		
+	public void mergeShort(int leftIndex,int rightIndex)
+	{
 		try
 		{
-			int numberOfNode=0;
-			int source=0;
-			int[][] addJecencyMattrix;
-			Scanner sc = new Scanner(System.in);
-			System.out.println("Enter No. Of Node's");
-			numberOfNode = sc.nextInt();
-			addJecencyMattrix = new int[numberOfNode+1][numberOfNode+1];
-			System.out.println("Enter Addjenceny Mattrix");
-			for(int i=1;i<=numberOfNode;i++)
+			if(rightIndex>leftIndex)
 			{
-				for(int j=0;j<=numberOfNode;j++)
-				{
-					addJecencyMattrix[i][j]=sc.nextInt();
-				}
+				int mid=(rightIndex+leftIndex)/2;
+				mergeShort(leftIndex,mid);
+				mergeShort(mid+1,rightIndex);
+				merge(leftIndex,mid,rightIndex);
 			}
-			System.out.println("Enter Source Node-->");
-			source = sc.nextInt();
-			DfsSearchAlgo dfsSearchAlgo = new DfsSearchAlgo();
-			dfsSearchAlgo.dfSearch(addJecencyMattrix, source); 
 		}
 		catch(Exception ex)
 		{
 			ex.printStackTrace();
 		}
-
+		
 	}
-
+	
+	
+	public void merge(int leftIndex,int midIndex,int rightIndex)
+	{
+		try
+		{
+			for(int i=leftIndex;i<=rightIndex;i++)
+			{
+				temp[i] = array[i];
+			}
+			int left=leftIndex;
+			int right=rightIndex;
+			int mid = midIndex+1;
+			int tempIndex=leftIndex;
+			while(left<=midIndex&&mid<=right)
+			{
+				if(temp[left]<=temp[mid])
+				{
+					array[tempIndex] = temp[left];
+					left++;
+				}
+				else
+				{
+					array[tempIndex] = temp[mid];
+					mid++;
+				}
+				tempIndex++;
+			}
+			while(left<=midIndex)
+			{
+				array[tempIndex] = temp[left];
+				left++;
+				tempIndex++;
+			}
+			while(mid<=rightIndex)
+			{
+				array[tempIndex] = temp[mid];
+				tempIndex++;
+				mid++;
+			}
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+		}
+	}
+	
+	
 }
