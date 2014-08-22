@@ -29,7 +29,7 @@ public class LinkedListImpl {
 			//l.replaceOneNodeFromAnotherNode(21,39);
 			
 //			l.deleteNode(21);
-//			l.deleteNode(12);
+//			l.deleteNode(12); 
 			//l.swapTwoDiffrentNode(3,5);
 			//l.print();
 			//l.reverseInSomeSpecificPart(4);
