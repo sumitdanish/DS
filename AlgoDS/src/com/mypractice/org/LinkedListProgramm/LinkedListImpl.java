@@ -29,7 +29,7 @@ public class LinkedListImpl {
 			//l.replaceOneNodeFromAnotherNode(21,39);
 			
 //			l.deleteNode(21);
-//			l.deleteNode(12); 
+//			l.deleteNode(12);
 			//l.swapTwoDiffrentNode(3,5);
 			//l.print();
 			//l.reverseInSomeSpecificPart(4);
@@ -254,6 +254,78 @@ public class LinkedListImpl {
 	}
 	
 	
+	private LinkListNode reverserKthAlternateNodeUsingLoop(LinkListNode listNode,int k)
+	{
+		try
+		{
+			LinkListNode ll = listNode;
+			LinkListNode ll3 = listNode;
+			LinkListNode ll1=null;
+			LinkListNode temp2=null;
+			int x=0;
+			while(ll!=null)
+			{
+ 				LinkListNode temp = null;
+				LinkListNode temp1 = ll.getNextLink();
+				temp2 = ll1;
+				ll1=ll;
+				int count=0;
+				
+				while(count<k&&ll1!=null)
+				{
+					ll1 = ll1.getNextLink();
+					count++;
+				}
+				temp2=ll1;
+				count=0;
+				while(temp1!=null&&count<k)
+				{
+					ll.setNextLink(temp);
+					temp = ll;
+					ll=temp1;
+					temp1=temp1.getNextLink();
+					count++;
+				}
+				LinkListNode ll2 = temp;
+//				while(temp!=null)
+//				{
+//					System.out.print(temp.getNodeData()+" > ");
+//				}
+				System.out.println();
+				LinkListNode kl1 = ll2;
+				while(kl1!=null)
+				{
+					System.out.print(kl1.getNodeData()+" s> ");
+					kl1 = kl1.getNextLink();
+				}
+				System.out.println();
+				while(ll2.getNextLink()!=null)
+				{
+					ll2=ll2.getNextLink();
+				}
+				
+				ll2.setNextLink(temp2);
+				temp2=temp;
+				ll = ll1;
+				
+				LinkListNode kl = ll;
+				while(kl!=null)
+				{
+					System.out.print(kl.getNodeData()+" > ");
+					kl = kl.getNextLink();
+				}
+				
+			}
+			System.out.println();
+			return temp2;
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+		}
+		return null;
+	}
+	
 	
 	private LinkListNode reverseKthAlternateNode(LinkListNode listNode,int k)
 	{
@@ -467,7 +539,7 @@ public class LinkedListImpl {
 	{
 		//LinkListNode indexNode1=this.reverseInSomeSpecificPart(listNode,3);
 		//LinkListNode indexNode1=this.reverseLinkListNode(listNode);
-		LinkListNode indexNode1=this.reverseKthAlternateNode(listNode,1);
+		LinkListNode indexNode1=this.reverserKthAlternateNodeUsingLoop(listNode,3); 
 		while(indexNode1!=null)
 		{
 			System.out.print(indexNode1.getNodeData()+"-->");
