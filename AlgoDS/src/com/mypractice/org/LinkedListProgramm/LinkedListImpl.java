@@ -6,7 +6,7 @@ public class LinkedListImpl {
 	 * @param args
 	 */
 	
-	
+	 
 	LinkListNode listNode;
 	int size=0;
 	public static void main(String[] args) {
