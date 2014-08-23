@@ -260,62 +260,39 @@ public class LinkedListImpl {
 		{
 			LinkListNode ll = listNode;
 			LinkListNode ll3 = listNode;
-			LinkListNode ll1=null;
-			LinkListNode temp2=null;
 			int x=0;
+			LinkListNode temp2=null;//previous
+			LinkListNode temp = null;
+			LinkListNode ll1=null;//next
 			while(ll!=null)
 			{
- 				LinkListNode temp = null;
-				LinkListNode temp1 = ll.getNextLink();
-				temp2 = ll1;
-				ll1=ll;
-				int count=0;
+ 				
+				LinkListNode temp1 = ll;//current
 				
-				while(count<k&&ll1!=null)
-				{
-					ll1 = ll1.getNextLink();
-					count++;
-				}
-				temp2=ll1;
-				count=0;
+				
+				int count=0;
 				while(temp1!=null&&count<k)
 				{
-					ll.setNextLink(temp);
-					temp = ll;
-					ll=temp1;
-					temp1=temp1.getNextLink();
+					ll1=temp1.getNextLink();
+					temp1.setNextLink(temp2);
+					temp2=temp1;
+					temp1=ll1;
 					count++;
 				}
-				LinkListNode ll2 = temp;
-//				while(temp!=null)
-//				{
-//					System.out.print(temp.getNodeData()+" > ");
-//				}
-				System.out.println();
-				LinkListNode kl1 = ll2;
-				while(kl1!=null)
-				{
-					System.out.print(kl1.getNodeData()+" s> ");
-					kl1 = kl1.getNextLink();
-				}
-				System.out.println();
-				while(ll2.getNextLink()!=null)
-				{
-					ll2=ll2.getNextLink();
-				}
 				
-				ll2.setNextLink(temp2);
-				temp2=temp;
-				ll = ll1;
-				
-				LinkListNode kl = ll;
-				while(kl!=null)
+				while(temp2!=null)
 				{
-					System.out.print(kl.getNodeData()+" > ");
-					kl = kl.getNextLink();
+					System.out.print(temp2.getNodeData()+"-->");
+					temp2=temp2.getNextLink();
 				}
+				//ll1.setNextLink(ll.getNextLink());
+				
+				ll=ll1;
+				
+				
 				
 			}
+			
 			System.out.println();
 			return temp2;
 		}
@@ -540,6 +517,7 @@ public class LinkedListImpl {
 		//LinkListNode indexNode1=this.reverseInSomeSpecificPart(listNode,3);
 		//LinkListNode indexNode1=this.reverseLinkListNode(listNode);
 		LinkListNode indexNode1=this.reverserKthAlternateNodeUsingLoop(listNode,3); 
+		//LinkListNode indexNode1=this.reverseKthAlternateNode(listNode, 3);//(listNode,3);
 		while(indexNode1!=null)
 		{
 			System.out.print(indexNode1.getNodeData()+"-->");
