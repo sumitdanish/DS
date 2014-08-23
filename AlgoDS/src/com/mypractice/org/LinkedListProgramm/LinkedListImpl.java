@@ -6,7 +6,7 @@ public class LinkedListImpl {
 	 * @param args
 	 */
 	
-	 
+	
 	LinkListNode listNode;
 	int size=0;
 	public static void main(String[] args) {
@@ -259,17 +259,18 @@ public class LinkedListImpl {
 		try
 		{
 			LinkListNode ll = listNode;
-			LinkListNode ll3 = listNode;
+			
 			int x=0;
 			LinkListNode temp2=null;//previous
 			LinkListNode temp = null;
 			LinkListNode ll1=null;//next
+			temp=ll.getNextLink();
+			int c=0;
 			while(ll!=null)
 			{
  				
 				LinkListNode temp1 = ll;//current
-				
-				
+				temp=ll;
 				int count=0;
 				while(temp1!=null&&count<k)
 				{
@@ -279,22 +280,25 @@ public class LinkedListImpl {
 					temp1=ll1;
 					count++;
 				}
-				
-				while(temp2!=null)
+				c=c+(count-1);
+				count=0;
+				while(temp!=null&&count<k)
 				{
-					System.out.print(temp2.getNodeData()+"-->");
-					temp2=temp2.getNextLink();
+					temp=temp.getNextLink();
+					count++;
 				}
-				//ll1.setNextLink(ll.getNextLink());
-				
+				LinkListNode ll3 = temp2;
+				while(ll3.getNextLink()!=null)
+				{
+					ll3=ll3.getNextLink();
+				}
+				ll3.setNextLink(temp);
+				temp=temp2;
 				ll=ll1;
-				
-				
-				
 			}
 			
 			System.out.println();
-			return temp2;
+			return temp;
 		}
 		catch(Exception ex)
 		{
@@ -352,11 +356,6 @@ public class LinkedListImpl {
 			 * 
 			 */
 			
-			LinkListNode tempNode2 = listNode;
-			for(int i=0;i<nodeIndex;i++)
-			{
-				tempNode2=tempNode2.getNextLink();
-			}
 			LinkListNode tempNode1=listNode.getNextLink();
 			LinkListNode tempNode11=listNode;
 			int count=1;
@@ -432,14 +431,18 @@ public class LinkedListImpl {
 		return null;
 	}
 	
-	
-	private void swapTwoDiffrentNode(int node1Index,int node2Index)
+	private LinkListNode swapTwoDiffrentNode(LinkListNode listNode,int node1Index,int node2Index)
 	{
 		try
 		{
+			int k=node1Index;
+			if(2*k-1==size)
+			{
+				return null;
+			}
 			LinkListNode tempNode = listNode;
 			LinkListNode tempNode_pre = null;
-			for(int i=0;i<node1Index-1;i++)
+			for(int i=0;i<node1Index;i++)
 			{
 				tempNode_pre=tempNode;
 				tempNode=tempNode.getNextLink();
@@ -448,20 +451,96 @@ public class LinkedListImpl {
 			LinkListNode tempNode1=listNode;
 			LinkListNode tempNode1_pre=null;
 			
-			for(int i=0;i<(size-node2Index);i++)
+			for(int i=0;i<(size-node2Index+1);i++)
 			{
 				tempNode1_pre=tempNode1;
 				tempNode1=tempNode1.getNextLink();
 			}
 			
-			LinkListNode temp = tempNode_pre.getNextLink();
-			tempNode_pre.setNextLink(tempNode1_pre.getNextLink());
-			tempNode1_pre.setNextLink(temp);
+			tempNode_pre.setNextLink(tempNode1);
+			tempNode1_pre.setNextLink(tempNode);
+			LinkListNode temp = tempNode.getNextLink();
+			tempNode.setNextLink(tempNode1.getNextLink());
+			tempNode1.setNextLink(temp.getNextLink());
+//			if(k==1)
+//			{
+//				System.out.println(">> "+tempNode1.getNodeData());
+//				listNode=tempNode1;
+//			}
+//			if(k==size)
+//			{
+//				System.out.println(">>>> "+tempNode.getNodeData());
+//				listNode=tempNode;
+//			}
+			
+			return listNode;
 		}
 		catch(Exception ex)
 		{
 			ex.printStackTrace();
 		}
+		return null;
+	}
+	
+	
+	
+	
+	// This method will swap two different node by using Next or Address field of the linked list;
+	
+	private LinkListNode swapTwoDiffrentNodeUsingNode_NextOrAddressField(LinkListNode listNode)
+	{
+		try
+		{
+			LinkListNode ll = listNode;
+			LinkListNode temp1 = listNode.getNextLink();
+			LinkListNode temp2 = temp1;
+			boolean flag = true;
+			while(flag)
+			{
+				LinkListNode ll1 = temp1.getNextLink();
+				temp1.setNextLink(ll);
+				if(ll1==null||ll1.getNextLink()==null)
+				{
+					ll.setNextLink(ll1);
+					flag=false;
+					break;
+				}
+				ll.setNextLink(ll1.getNextLink());
+				ll=ll1;
+				temp1=ll.getNextLink();
+				
+			}
+			return temp2;
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+		}
+		return null;
+	}
+	
+	
+	// This method will swap two diffrent node by using data field of the linked list;
+	
+	private LinkListNode swapTwoDiffrentNodeUsingNodeDataField(LinkListNode listNode)
+	{
+		try
+		{
+			LinkListNode ll = listNode;
+			while(ll!=null&&ll.getNextLink()!=null)
+			{
+				int temp = ll.getNodeData();
+				ll.setNodeData(ll.getNextLink().getNodeData());
+				ll.getNextLink().setNodeData(temp);
+				ll=ll.getNextLink().getNextLink();
+			}
+			return listNode;
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+		}
+		return null;
 	}
 	
 	
@@ -516,12 +595,17 @@ public class LinkedListImpl {
 	{
 		//LinkListNode indexNode1=this.reverseInSomeSpecificPart(listNode,3);
 		//LinkListNode indexNode1=this.reverseLinkListNode(listNode);
-		LinkListNode indexNode1=this.reverserKthAlternateNodeUsingLoop(listNode,3); 
+		//LinkListNode indexNode1=this.reverserKthAlternateNodeUsingLoop(listNode,3); 
+		LinkListNode indexNode1=this.swapTwoDiffrentNode(listNode, 3, 3); 
+		//LinkListNode indexNode1=this.swapTwoDiffrentNodeUsingNodeDataField(listNode); 
+		//LinkListNode indexNode1=this.swapTwoDiffrentNodeUsingNode_NextOrAddressField(listNode);
 		//LinkListNode indexNode1=this.reverseKthAlternateNode(listNode, 3);//(listNode,3);
 		while(indexNode1!=null)
 		{
 			System.out.print(indexNode1.getNodeData()+"-->");
 			indexNode1=indexNode1.getNextLink();
 		}
+		System.out.println();
+		
 	}
 }
