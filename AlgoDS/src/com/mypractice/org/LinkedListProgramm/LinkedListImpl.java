@@ -187,46 +187,41 @@ public class LinkedListImpl {
 		try
 		{
 			LinkListNode tempNode = listNode;
-			LinkListNode tempNode2 = listNode;
-			LinkListNode tempNode3 = null;
 			LinkListNode tempNode1=null;
 			int count=0;
 			while(tempNode!=null)
 			{
 				count=0;
-				tempNode2 = tempNode;
-				while(tempNode2!=null&&count<mTh)
+				while(tempNode!=null&&count<mTh)
 				{
-					tempNode2=tempNode2.getNextLink();
+					tempNode=tempNode.getNextLink();
 					count++;
 				}
-				System.out.println(">> "+tempNode.getNodeData()+" >> "+tempNode2.getNodeData());
-				if(tempNode2.getNextLink()!=null)
+				
+				if(tempNode==null)
 				{
-					break;
+					return listNode;
 				}
 					//
 				
-				tempNode1 = tempNode2.getNextLink();
-				tempNode3=tempNode1;
-				count=0;
-					while(tempNode1!=null&&count<nTh)
+				tempNode1 = tempNode.getNextLink();
+			
+				int count1=0;
+					while(tempNode1!=null&&count1<nTh)
 					{
-						LinkListNode temp = tempNode1.getNextLink();
+						LinkListNode temp = tempNode1;
 						tempNode1=tempNode1.getNextLink();
 						temp=null;
-						count++;
+						count1++;
 					}
-					tempNode.setNextLink(tempNode1.getNextLink());
-					tempNode=tempNode1;
-					tempNode2.setNextLink(tempNode1.getNextLink());
-					tempNode3=tempNode;
-					//tempNode3=tempNode2;
+					tempNode.setNextLink(tempNode1);
+					//tempNode=tempNode1;
+					
 					//;
 			}
-			tempNode3=tempNode;
+			
 			//tempNode2=tempNode;
-			return tempNode3;
+			return listNode;
 		}
 		catch(Exception ex)
 		{
