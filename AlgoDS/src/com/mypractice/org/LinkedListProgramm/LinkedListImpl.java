@@ -178,6 +178,67 @@ public class LinkedListImpl {
 		}
 	}
 	
+	
+	
+	
+	
+	private LinkListNode deleteNodeNthNodeAfterMthNodeAlternatively(LinkListNode listNode,int mTh,int nTh)
+	{
+		try
+		{
+			LinkListNode tempNode = listNode;
+			LinkListNode tempNode2 = listNode;
+			LinkListNode tempNode3 = null;
+			LinkListNode tempNode1=null;
+			int count=0;
+			while(tempNode!=null)
+			{
+				count=0;
+				tempNode2 = tempNode;
+				while(tempNode2!=null&&count<mTh)
+				{
+					tempNode2=tempNode2.getNextLink();
+					count++;
+				}
+				System.out.println(">> "+tempNode.getNodeData()+" >> "+tempNode2.getNodeData());
+				if(tempNode2.getNextLink()!=null)
+				{
+					break;
+				}
+					//
+				
+				tempNode1 = tempNode2.getNextLink();
+				tempNode3=tempNode1;
+				count=0;
+					while(tempNode1!=null&&count<nTh)
+					{
+						LinkListNode temp = tempNode1.getNextLink();
+						tempNode1=tempNode1.getNextLink();
+						temp=null;
+						count++;
+					}
+					tempNode.setNextLink(tempNode1.getNextLink());
+					tempNode=tempNode1;
+					tempNode2.setNextLink(tempNode1.getNextLink());
+					tempNode3=tempNode;
+					//tempNode3=tempNode2;
+					//;
+			}
+			tempNode3=tempNode;
+			//tempNode2=tempNode;
+			return tempNode3;
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+		}
+		return null;
+	}
+	
+	
+	
+	
+	
 	/*This method will return the node from the beggning of the index n */
 	
 	private  LinkListNode getNode(int nodeIndex)
@@ -435,11 +496,6 @@ public class LinkedListImpl {
 	{
 		try
 		{
-			int k=node1Index;
-			if(2*k-1==size)
-			{
-				return null;
-			}
 			LinkListNode tempNode = listNode;
 			LinkListNode tempNode_pre = null;
 			for(int i=0;i<node1Index;i++)
@@ -451,7 +507,7 @@ public class LinkedListImpl {
 			LinkListNode tempNode1=listNode;
 			LinkListNode tempNode1_pre=null;
 			
-			for(int i=0;i<(size-node2Index+1);i++)
+			for(int i=0;i<(size-node2Index+1)-1;i++)
 			{
 				tempNode1_pre=tempNode1;
 				tempNode1=tempNode1.getNextLink();
@@ -461,18 +517,8 @@ public class LinkedListImpl {
 			tempNode1_pre.setNextLink(tempNode);
 			LinkListNode temp = tempNode.getNextLink();
 			tempNode.setNextLink(tempNode1.getNextLink());
-			tempNode1.setNextLink(temp.getNextLink());
-//			if(k==1)
-//			{
-//				System.out.println(">> "+tempNode1.getNodeData());
-//				listNode=tempNode1;
-//			}
-//			if(k==size)
-//			{
-//				System.out.println(">>>> "+tempNode.getNodeData());
-//				listNode=tempNode;
-//			}
-			
+			tempNode1.setNextLink(temp);
+			tempNode1=temp;
 			return listNode;
 		}
 		catch(Exception ex)
@@ -596,7 +642,8 @@ public class LinkedListImpl {
 		//LinkListNode indexNode1=this.reverseInSomeSpecificPart(listNode,3);
 		//LinkListNode indexNode1=this.reverseLinkListNode(listNode);
 		//LinkListNode indexNode1=this.reverserKthAlternateNodeUsingLoop(listNode,3); 
-		LinkListNode indexNode1=this.swapTwoDiffrentNode(listNode, 3, 3); 
+		//LinkListNode indexNode1=this.swapTwoDiffrentNode(listNode, 3,3); 
+		LinkListNode indexNode1=this.deleteNodeNthNodeAfterMthNodeAlternatively(listNode,2,2);
 		//LinkListNode indexNode1=this.swapTwoDiffrentNodeUsingNodeDataField(listNode); 
 		//LinkListNode indexNode1=this.swapTwoDiffrentNodeUsingNode_NextOrAddressField(listNode);
 		//LinkListNode indexNode1=this.reverseKthAlternateNode(listNode, 3);//(listNode,3);
