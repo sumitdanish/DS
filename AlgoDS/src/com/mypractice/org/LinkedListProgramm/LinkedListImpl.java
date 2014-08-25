@@ -8,6 +8,7 @@ public class LinkedListImpl {
 	
 	
 	LinkListNode listNode;
+	LinkListNode listNode1;
 	int size=0;
 	public static void main(String[] args) {
 		// 
@@ -22,11 +23,24 @@ public class LinkedListImpl {
 			l.insertNode(13);
 			l.insertNode(14);
 			l.insertNode(15);
-			l.insertNodeAfterAnyNode(14, 21);
-			l.insertNodeAfterAnyNode(21,22);
-			l.insertNodeAfterAnyNode(22,23);
-			l.print();
+//			l.insertNodeAfterAnyNode(14, 21);
+//			l.insertNodeAfterAnyNode(21,22);
+//			l.insertNodeAfterAnyNode(22,23);
+			//l.print();
 			//l.replaceOneNodeFromAnotherNode(21,39);
+			
+			System.out.println();
+			l.insertNode1(1);
+			l.inserIntoHead1(45);
+			l.inserIntoHead1(36);
+			l.inserIntoHead1(56);
+			l.inserIntoHead1(76);
+			l.insertNode1(87);
+			l.insertNode1(90);
+			l.insertNode1(9);
+			l.print1();
+			
+			
 			
 //			l.deleteNode(21);
 //			l.deleteNode(12);
@@ -45,6 +59,59 @@ public class LinkedListImpl {
 
 	}
 
+	/** Delete These two Method*/
+	
+	private void inserIntoHead1(int nodeVal)
+	{
+		try
+		{
+			LinkListNode tempNode = listNode1;
+			LinkListNode tempNode1 = new LinkListNode(nodeVal,null);
+			tempNode1.setNextLink(tempNode);
+			tempNode = tempNode1;
+			listNode1=tempNode;
+			//size++;
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+		}
+	}
+	
+	
+	private void insertNode1(int nodeVal)
+	{
+		try
+		{
+			LinkListNode ln = new LinkListNode(nodeVal,null);
+			if(listNode1==null)
+			{
+				ln.setNextLink(listNode1);
+				listNode1=ln;
+				//size++;
+			}
+			else
+			{
+				LinkListNode tempLn = listNode1;
+				while(tempLn.getNextLink()!=null)
+				{
+					tempLn=tempLn.getNextLink();
+				}
+				tempLn.setNextLink(ln);
+				//size++;
+			}
+			
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+		}
+	}
+	
+	
+	
+	
+	
 	
 	
 	private void inserIntoHead(int nodeVal)
@@ -284,6 +351,90 @@ public class LinkedListImpl {
 		}
 		return null;
 	}
+	
+	
+	
+	private LinkListNode mergeAlternateNode(LinkListNode listNode,LinkListNode listNode1)
+	{
+		try
+		{
+			LinkListNode tempNode = listNode;
+			LinkListNode tempNode1 = listNode1;
+			
+			LinkListNode tempNode_1 = null;
+			LinkListNode tempNode1_1 = null;
+			
+			while(tempNode!=null&&tempNode1!=null)
+			{
+				tempNode_1 = tempNode.getNextLink(); 
+				tempNode1_1 = tempNode1.getNextLink();	
+				tempNode.setNextLink(tempNode1);
+				
+				// Think About this line again...
+				tempNode1.setNextLink(tempNode_1);
+			
+				//System.out.println(tempNode.getNodeData());
+				tempNode=tempNode_1;
+				tempNode1=tempNode1_1;
+			}
+			//System.out.println(tempNode_1.getNodeData()+" > "+tempNode1_1.getNodeData());
+			tempNode=listNode;
+			
+			return tempNode;
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+		}
+		return null;
+	}
+	
+	
+	
+	
+	private LinkListNode rotateLinkdList(LinkListNode listNode,int kTh)
+	{
+		try
+		{
+			LinkListNode tempNode = listNode;
+			int count=0;
+			while(count < kTh-1 && tempNode!=null)
+			{
+				tempNode = tempNode.getNextLink();
+				count++;
+			}
+			LinkListNode tempNode1 = tempNode;
+			while(tempNode.getNextLink()!=null)
+			{
+				tempNode = tempNode.getNextLink();
+			}
+			tempNode.setNextLink(listNode);
+			
+			
+			/*	NOTE--->Here we shifting old head pointer to the end of kTh node .
+			 *	Other wise we can traverse till the kTh node by using original head pointer i.e listNode
+			 *	but problem is that , we are not able to return the list after kTh Node. for avoiding this we need to store kTh pointer;
+			 *	Here we did this in tempNode1 variable
+			*/
+			
+			
+			listNode = tempNode1.getNextLink();
+			tempNode1.setNextLink(null);
+			return listNode;
+			
+			
+			
+			
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+		}
+		return null;
+	}
+	
+	
+	
 	
 	
 	private void replaceOneNodeFromAnotherNode(int olderNodeValOrNodeIndex,int newNodeVal)
@@ -638,7 +789,29 @@ public class LinkedListImpl {
 		//LinkListNode indexNode1=this.reverseLinkListNode(listNode);
 		//LinkListNode indexNode1=this.reverserKthAlternateNodeUsingLoop(listNode,3); 
 		//LinkListNode indexNode1=this.swapTwoDiffrentNode(listNode, 3,3); 
-		LinkListNode indexNode1=this.deleteNodeNthNodeAfterMthNodeAlternatively(listNode,2,2);
+		//LinkListNode indexNode1=this.deleteNodeNthNodeAfterMthNodeAlternatively(listNode,2,2);
+		//LinkListNode indexNode1=this.rotateLinkdList(listNode,4);
+		LinkListNode indexNode1=listNode;
+		//LinkListNode indexNode1=this.swapTwoDiffrentNodeUsingNodeDataField(listNode); 
+		//LinkListNode indexNode1=this.swapTwoDiffrentNodeUsingNode_NextOrAddressField(listNode);
+		//LinkListNode indexNode1=this.reverseKthAlternateNode(listNode, 3);//(listNode,3);
+		while(indexNode1!=null)
+		{
+			System.out.print(indexNode1.getNodeData()+"-->");
+			indexNode1=indexNode1.getNextLink();
+		}
+		System.out.println();
+		
+	}
+	private void print1()
+	{
+		//LinkListNode indexNode1=this.reverseInSomeSpecificPart(listNode,3);
+		//LinkListNode indexNode1=this.reverseLinkListNode(listNode);
+		//LinkListNode indexNode1=this.reverserKthAlternateNodeUsingLoop(listNode,3); 
+		//LinkListNode indexNode1=this.swapTwoDiffrentNode(listNode, 3,3); 
+		//LinkListNode indexNode1=this.deleteNodeNthNodeAfterMthNodeAlternatively(listNode,2,2);
+		//LinkListNode indexNode1=this.rotateLinkdList(listNode,4);
+		LinkListNode indexNode1=this.mergeAlternateNode(listNode, listNode1);
 		//LinkListNode indexNode1=this.swapTwoDiffrentNodeUsingNodeDataField(listNode); 
 		//LinkListNode indexNode1=this.swapTwoDiffrentNodeUsingNode_NextOrAddressField(listNode);
 		//LinkListNode indexNode1=this.reverseKthAlternateNode(listNode, 3);//(listNode,3);
