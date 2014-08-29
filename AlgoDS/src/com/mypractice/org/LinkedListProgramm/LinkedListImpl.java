@@ -9,37 +9,53 @@ public class LinkedListImpl {
 	
 	LinkListNode listNode;
 	LinkListNode listNode1;
+	LinkListNode listNode2;
+	LinkListNode m1;
+	LinkListNode m2;
 	int size=0;
 	public static void main(String[] args) {
 		// 
 		try
 		{
 			LinkedListImpl l= new LinkedListImpl();
-			l.insertNode(12);
-			l.inserIntoHead(3);
-			l.inserIntoHead(31);
-			l.inserIntoHead(311);
-			l.inserIntoHead(3111);
-			l.insertNode(13);
-			l.insertNode(14);
-			l.insertNode(15);
+			l.insertNode(7);
+//			l.inserIntoHead(12);
+//			l.inserIntoHead(13);
+//			l.inserIntoHead(14);
+//			l.inserIntoHead(15);
+			l.insertNode(5);
+			l.insertNode(9);
+			l.insertNode(4);
+			l.insertNode(6);
+//			l.insertNode(6);
+//			l.insertNode(3);
+//			l.insertNode(18);
+//			l.insertNode(9);
+//			l.insertNode(10);
+//			l.insertNode(21);
+//			l.insertNode(22);
+//			l.insertNode(3);
+//			l.insertNode(24);
+//			l.insertNode(6);
 //			l.insertNodeAfterAnyNode(14, 21);
 //			l.insertNodeAfterAnyNode(21,22);
 //			l.insertNodeAfterAnyNode(22,23);
-			//l.print();
+			
 			//l.replaceOneNodeFromAnotherNode(21,39);
 			
-			System.out.println();
-			l.insertNode1(1);
-			l.inserIntoHead1(45);
-			l.inserIntoHead1(36);
-			l.inserIntoHead1(56);
-			l.inserIntoHead1(76);
-			l.insertNode1(87);
-			l.insertNode1(90);
-			l.insertNode1(9);
-			l.print1();
-			
+			//System.out.println();
+//			l.insertNode1(1);
+//			l.insertNode1(16);
+////			l.inserIntoHead1(2);
+////			l.inserIntoHead1(4);
+////			l.inserIntoHead18);
+////			l.inserIntoHead1(21);
+			l.insertNode1(8);
+			l.insertNode1(4);
+			//l.insertNode1(2);
+			//l.insertNode1(25);
+			//l.print1();
+			l.print();
 			
 			
 //			l.deleteNode(21);
@@ -108,7 +124,34 @@ public class LinkedListImpl {
 		}
 	}
 	
-	
+	private void insertNode2(int nodeVal)
+	{
+		try
+		{
+			LinkListNode ln = new LinkListNode(nodeVal,null);
+			if(listNode2==null)
+			{
+				ln.setNextLink(listNode2);
+				listNode2=ln;
+				//size++;
+			}
+			else
+			{
+				LinkListNode tempLn = listNode2;
+				while(tempLn.getNextLink()!=null)
+				{
+					tempLn=tempLn.getNextLink();
+				}
+				tempLn.setNextLink(ln);
+				//size++;
+			}
+			
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+		}
+	}
 	
 	
 	
@@ -255,6 +298,7 @@ public class LinkedListImpl {
 		{
 			LinkListNode tempNode = listNode;
 			LinkListNode tempNode1=null;
+			LinkListNode tempNode11=tempNode;
 			int count=0;
 			while(tempNode!=null)
 			{
@@ -288,7 +332,7 @@ public class LinkedListImpl {
 			}
 			
 			//tempNode2=tempNode;
-			return listNode;
+			return tempNode11;
 		}
 		catch(Exception ex)
 		{
@@ -351,6 +395,351 @@ public class LinkedListImpl {
 		}
 		return null;
 	}
+	
+	
+	/*Add two link list when every node has a single digit */
+	
+	private LinkListNode addTwoLinkedListNumber(LinkListNode listNode,LinkListNode listNode1)
+	{
+		try
+		{
+			LinkListNode tempNode = listNode;
+			LinkListNode tempNode1 = listNode1;
+			int sum = 0;
+			int carry=0;
+			int carry1=0;
+			int x=0;
+			while(tempNode!=null||tempNode1!=null)
+			{
+				if(tempNode==null)
+				{
+					sum=0+(tempNode1.getNodeData());
+					tempNode1=tempNode1.getNextLink();
+				}
+				else if(tempNode1==null)
+				{
+					sum=(tempNode.getNodeData())+0;
+					tempNode=tempNode.getNextLink();
+				}
+				else
+				{
+					sum=(tempNode.getNodeData())+(tempNode1.getNodeData());
+					tempNode=tempNode.getNextLink();
+					tempNode1=tempNode1.getNextLink();
+				}
+				sum=sum+carry;
+				carry = sum/10;
+				carry1=sum%10;
+				this.insertNode2(carry1);
+			}
+
+			return listNode2;
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+		}
+		return null;
+	}
+	
+	
+	
+	
+	
+	/* 3-->13-->14-->21-->22-->23-->15
+	 * firstList-->3-->14-->22-->15
+	 * secondList-->13-->21-->23
+	 */
+	
+	private void splitAlternatNodeInList(LinkListNode listNode)
+	{
+		try
+		{
+			LinkListNode tempNode = listNode;
+			LinkListNode temp = listNode.getNextLink();
+			LinkListNode a1;
+			LinkListNode a=tempNode;
+			LinkListNode b1;
+			LinkListNode b=temp;
+			//System.out.println(b.getNodeData()+" > "+a.getNodeData());
+			a1=a;
+			b1=b;
+			while(tempNode!=null&&tempNode.getNextLink()!=null)
+			{
+				int i=0;
+				if(i==0)
+				{
+					a.setNextLink(tempNode.getNextLink().getNextLink());
+					a=a.getNextLink();
+					tempNode = tempNode.getNextLink();
+					i++;
+				}
+				if(i==1)
+				{
+					if(temp!=null&&temp.getNextLink()!=null)
+					{
+						b.setNextLink(temp.getNextLink().getNextLink());
+						b=b.getNextLink();
+						temp=temp.getNextLink();
+					}
+					
+				}
+			}
+			
+			
+			/*This logic also work put the complete code inside the loop
+			 * 
+			 * tempNode.setNextLink(tempNode.getNextLink().getNextLink());
+				if(temp!=null&&temp.getNextLink()!=null)
+				{
+					temp.setNextLink(temp.getNextLink().getNextLink());
+					temp=temp.getNextLink();
+				}
+				tempNode=tempNode.getNextLink();
+			*/
+			
+			this.setFirstSplit(a1);
+			this.setSecondSplit(b1);
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+		}
+	}
+	
+	
+	
+	
+	
+	
+	private LinkListNode recursiveApproacForMergingTwoSortedList(LinkListNode listNode,LinkListNode listNode1)
+	{
+		try
+		{
+			LinkListNode result=null;
+			if(listNode==null)
+			{
+				return listNode1;
+			}
+			if(listNode1==null)
+			{
+				return listNode;
+			}
+			if(listNode.getNodeData()<listNode1.getNodeData())
+			{
+				result=listNode;
+				result.setNextLink(recursiveApproacForMergingTwoSortedList(listNode.getNextLink(), listNode1));
+			}
+			else if(listNode.getNodeData()>listNode1.getNodeData())
+			{
+				result=listNode1;
+				result.setNextLink(recursiveApproacForMergingTwoSortedList(listNode, listNode1.getNextLink()));
+			}
+			/*Handling for duplicate element from two sorted linkedList*/
+			else if(listNode.getNodeData()==listNode1.getNodeData())
+			{
+				result=listNode;
+				result.setNextLink(recursiveApproacForMergingTwoSortedList(listNode.getNextLink(), listNode1.getNextLink()));
+			}
+			return result;
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+		}
+		return null;
+	}
+	
+	
+	private LinkListNode mergSort(LinkListNode merge)
+	{
+		try
+		{
+			LinkListNode me = merge;
+			LinkListNode firstDevi=null;
+			LinkListNode secondDevi=null;
+			if(me==null||me.getNextLink()==null)
+			{
+				return me;
+			}
+			listDevision(me,firstDevi,secondDevi);
+			firstDevi = this.getFirstDev();
+			secondDevi = this.getSecondDev();
+			mergSort(firstDevi);
+			mergSort(secondDevi);
+			merge = this.recursiveApproacForMergingTwoSortedList(firstDevi,secondDevi);
+			return merge;
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+		}
+		return null;
+	}
+	
+	
+	private LinkListNode firstSplit;
+	private LinkListNode secondSplit;
+	
+	
+	
+	private LinkListNode firstDev;
+	private LinkListNode secondDev;
+	
+	
+	
+	public LinkListNode getFirstDev() {
+		return firstDev;
+	}
+
+	public void setFirstDev(LinkListNode firstDev) {
+		this.firstDev = firstDev;
+	}
+
+	public LinkListNode getSecondDev() {
+		return secondDev;
+	}
+
+	public void setSecondDev(LinkListNode secondDev) {
+		this.secondDev = secondDev;
+	}
+
+	private void listDevision(LinkListNode listNode,LinkListNode firstDevi,LinkListNode secondDevi)
+	{
+		try
+		{
+			LinkListNode slow;
+			LinkListNode fast;
+			if(listNode==null||listNode.getNextLink()==null)
+			{
+				firstDevi=listNode;
+				secondDevi=null;
+			}
+			else
+			{
+				slow=listNode;
+				fast = listNode.getNextLink();
+				while(fast!=null)
+				{
+					fast=fast.getNextLink();
+					if(fast!=null)
+					{
+						fast=fast.getNextLink();
+						slow=slow.getNextLink();
+					}
+				}
+				firstDevi=listNode;
+				secondDevi=slow.getNextLink();
+				slow.setNextLink(null);
+				
+				this.setFirstDev(firstDevi);
+				this.setSecondDev(secondDevi);
+			}
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+		}
+	}
+	
+	
+	
+	
+	//Try this program again... It includes In-place algoritham 
+	
+	
+	private LinkListNode mergeTwoSortedLinkListNode(LinkListNode listNode,LinkListNode listNode1)
+	{
+		try
+		{
+			LinkListNode tempListNode=listNode;
+			LinkListNode tempListNode1 = listNode1;
+			LinkListNode mergerList1;
+			LinkListNode mergerList;
+			
+			
+			// These two condition handling IN-PLACE ALGO for link list
+			/*******************************************************IMPORTANT CONCEPT--> IN-PLACE ALGO IN LINKED LIST*************/
+			if(tempListNode.getNodeData()>tempListNode1.getNodeData())
+			{
+				mergerList1 = tempListNode1;
+				mergerList = mergerList1;
+				tempListNode1 = tempListNode1.getNextLink();
+				//tempListNode = tempListNode.getNextLink();
+			}
+			else
+			{
+				mergerList1 = tempListNode;
+				mergerList = mergerList1;
+				tempListNode = tempListNode.getNextLink();
+				//tempListNode1 = tempListNode1.getNextLink();
+				
+			}
+			/*********************************************************************************************************************/
+			while(true)
+			{
+				if(tempListNode.getNodeData()<tempListNode1.getNodeData())
+				{
+					mergerList.setNextLink(tempListNode);
+					tempListNode= tempListNode.getNextLink();
+					mergerList = mergerList.getNextLink();
+				}
+				else if(tempListNode.getNodeData()>tempListNode1.getNodeData())
+				{
+					mergerList.setNextLink(tempListNode1);
+					tempListNode1= tempListNode1.getNextLink();
+					mergerList = mergerList.getNextLink();
+				}
+				
+				/*This else condition handling duplication in sorted list 
+				 * if u will remove this condition and duplicate element exist then loop will go to infinite becz 
+				 * that loop(initial while loop) will try to find condition for equals data which is not here so it will go infinite
+				 * 
+				 *  */
+				else if(tempListNode.getNodeData()==tempListNode1.getNodeData())
+				{
+					
+					mergerList.setNextLink(tempListNode);
+					tempListNode= tempListNode.getNextLink();
+					tempListNode1= tempListNode1.getNextLink();
+					mergerList = mergerList.getNextLink();
+				}
+				
+				
+				if(tempListNode==null)
+				{
+					while(tempListNode1!=null)
+					{
+						mergerList.setNextLink(tempListNode1);
+						tempListNode1 = tempListNode1.getNextLink();
+						mergerList = mergerList.getNextLink();
+					}
+					break;
+				}
+				else if(tempListNode1==null)
+				{
+					while(tempListNode!=null)
+					{
+						mergerList.setNextLink(tempListNode);
+						tempListNode = tempListNode.getNextLink();
+						mergerList = mergerList.getNextLink();
+					}
+					break;
+				}
+			}
+			
+			
+			return mergerList1;
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+		}
+		return null;
+	}
+	
+	
+	
 	
 	
 	
@@ -465,47 +854,36 @@ public class LinkedListImpl {
 	{
 		try
 		{
-			LinkListNode ll = listNode;
-			
-			int x=0;
-			LinkListNode temp2=null;//previous
-			LinkListNode temp = null;
-			LinkListNode ll1=null;//next
-			temp=ll.getNextLink();
-			int c=0;
-			while(ll!=null)
+			LinkListNode tempNode = listNode;
+			LinkListNode temp = tempNode;
+			LinkListNode ll = temp;
+			LinkListNode ll1 = ll;
+			while(tempNode!=null)
 			{
- 				
-				LinkListNode temp1 = ll;//current
-				temp=ll;
+				temp=null;
 				int count=0;
-				while(temp1!=null&&count<k)
+				LinkListNode tempNode1 = tempNode;
+				while(tempNode1!=null&& count<k)
 				{
-					ll1=temp1.getNextLink();
-					temp1.setNextLink(temp2);
-					temp2=temp1;
-					temp1=ll1;
+					tempNode1=tempNode.getNextLink();
+					tempNode.setNextLink(temp);
+					temp=tempNode;
+					tempNode=tempNode1;
 					count++;
 				}
-				c=c+(count-1);
-				count=0;
-				while(temp!=null&&count<k)
+				tempNode=tempNode1;
+
+				while(temp!=null)
 				{
+					System.out.print(temp.getNodeData()+"-->");
+//					ll.setNextLink(temp.getNextLink());
+//					ll=temp;
 					temp=temp.getNextLink();
-					count++;
+					//ll=ll.getNextLink();
 				}
-				LinkListNode ll3 = temp2;
-				while(ll3.getNextLink()!=null)
-				{
-					ll3=ll3.getNextLink();
-				}
-				ll3.setNextLink(temp);
-				temp=temp2;
-				ll=ll1;
+				
 			}
-			
-			System.out.println();
-			return temp;
+			return ll1;
 		}
 		catch(Exception ex)
 		{
@@ -638,7 +1016,7 @@ public class LinkedListImpl {
 		return null;
 	}
 	
-	private LinkListNode swapTwoDiffrentNode(LinkListNode listNode,int node1Index,int node2Index)
+	private LinkListNode swapTwoDiffrentNodeFrom_Mth_and_Nth_Porsition(LinkListNode listNode,int node1Index,int node2Index)
 	{
 		try
 		{
@@ -788,13 +1166,37 @@ public class LinkedListImpl {
 		//LinkListNode indexNode1=this.reverseInSomeSpecificPart(listNode,3);
 		//LinkListNode indexNode1=this.reverseLinkListNode(listNode);
 		//LinkListNode indexNode1=this.reverserKthAlternateNodeUsingLoop(listNode,3); 
-		//LinkListNode indexNode1=this.swapTwoDiffrentNode(listNode, 3,3); 
+		//LinkListNode indexNode1=this.swapTwoDiffrentNodeFrom_Mth_and_Nth_Porsition(listNode, 3,3); 
 		//LinkListNode indexNode1=this.deleteNodeNthNodeAfterMthNodeAlternatively(listNode,2,2);
 		//LinkListNode indexNode1=this.rotateLinkdList(listNode,4);
-		LinkListNode indexNode1=listNode;
+		//LinkListNode indexNode1=listNode;
 		//LinkListNode indexNode1=this.swapTwoDiffrentNodeUsingNodeDataField(listNode); 
-		//LinkListNode indexNode1=this.swapTwoDiffrentNodeUsingNode_NextOrAddressField(listNode);
-		//LinkListNode indexNode1=this.reverseKthAlternateNode(listNode, 3);//(listNode,3);
+	    //LinkListNode indexNode1=this.swapTwoDiffrentNodeUsingNode_NextOrAddressField(listNode);
+		//this.splitAlternatNodeInList(listNode);
+		 //LinkListNode indexNode1=this.reverseKthAlternateNode(listNode, 3);//(listNode,3);
+//		while(indexNode1!=null)
+//		{
+//			System.out.print(indexNode1.getNodeData()+"-->");
+//			indexNode1=indexNode1.getNextLink();
+//		}
+//		 System.out.println();
+		 LinkListNode indexNode=this.addTwoLinkedListNumber(listNode, listNode1);
+//			//LinkListNode indexNode1=this.reverseKthAlternateNode(listNode, 3);//(listNode,3);
+			while(indexNode!=null)
+			{
+				System.out.print(indexNode.getNodeData()+"-->");
+				indexNode=indexNode.getNextLink();
+			}
+		//this.addTwoLinkedListNumber(listNode, listNode1);
+		System.out.println();
+		
+	}
+	private void print1()
+	{
+		//LinkListNode indexNode1=this.mergeAlternateNode(listNode, listNode1);
+		//LinkListNode indexNode1=this.mergeTwoSortedLinkListNode(listNode, listNode1);
+		LinkListNode indexNode1=this.recursiveApproacForMergingTwoSortedList(listNode, listNode1);
+		System.out.println();
 		while(indexNode1!=null)
 		{
 			System.out.print(indexNode1.getNodeData()+"-->");
@@ -803,24 +1205,20 @@ public class LinkedListImpl {
 		System.out.println();
 		
 	}
-	private void print1()
-	{
-		//LinkListNode indexNode1=this.reverseInSomeSpecificPart(listNode,3);
-		//LinkListNode indexNode1=this.reverseLinkListNode(listNode);
-		//LinkListNode indexNode1=this.reverserKthAlternateNodeUsingLoop(listNode,3); 
-		//LinkListNode indexNode1=this.swapTwoDiffrentNode(listNode, 3,3); 
-		//LinkListNode indexNode1=this.deleteNodeNthNodeAfterMthNodeAlternatively(listNode,2,2);
-		//LinkListNode indexNode1=this.rotateLinkdList(listNode,4);
-		LinkListNode indexNode1=this.mergeAlternateNode(listNode, listNode1);
-		//LinkListNode indexNode1=this.swapTwoDiffrentNodeUsingNodeDataField(listNode); 
-		//LinkListNode indexNode1=this.swapTwoDiffrentNodeUsingNode_NextOrAddressField(listNode);
-		//LinkListNode indexNode1=this.reverseKthAlternateNode(listNode, 3);//(listNode,3);
-		while(indexNode1!=null)
-		{
-			System.out.print(indexNode1.getNodeData()+"-->");
-			indexNode1=indexNode1.getNextLink();
-		}
-		System.out.println();
-		
+
+	public LinkListNode getFirstSplit() {
+		return firstSplit;
+	}
+
+	public void setFirstSplit(LinkListNode firstSplit) {
+		this.firstSplit = firstSplit;
+	}
+
+	public LinkListNode getSecondSplit() {
+		return secondSplit;
+	}
+
+	public void setSecondSplit(LinkListNode secondSplit) {
+		this.secondSplit = secondSplit;
 	}
 }
