@@ -3,6 +3,8 @@ package com.mypractice.org.LinkedListProgramm;
 import java.io.File;
 import java.util.Scanner;
 
+import com.Test.LinkList.LinkedListNode;
+
 public class LinkedListImpl {
 
 	/**
@@ -32,8 +34,8 @@ public class LinkedListImpl {
 			{
 				l.insertNode1(Integer.parseInt(s));
 			}
-			//l.print();
-			l.print1();
+			l.print();
+			//l.print1();
 		}
 		catch(Exception ex)
 		{
@@ -255,6 +257,75 @@ public class LinkedListImpl {
 		}
 	}
 	
+	
+	
+	
+	private LinkListNode insertLastNodeIntoHead(LinkListNode listNode)
+	{
+		try
+		{
+			LinkListNode tempNode = listNode;
+			LinkListNode temp=null;
+			while(tempNode.getNextLink()!=null)
+			{
+				temp=tempNode;
+				tempNode=tempNode.getNextLink();
+			}
+			temp.setNextLink(null);
+			tempNode.setNextLink(listNode);
+			listNode=tempNode;
+			return tempNode;
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+		}
+		return null;
+	}
+	
+	
+	
+	
+	
+	
+	//try this method again...
+	
+	private void deleteNBodeFromEndOfTheLinkList(LinkListNode listNode)
+	{
+		try
+		{
+			int count=8;
+			LinkListNode tempNode1 = listNode;
+			LinkListNode tempNode = listNode;
+			LinkListNode temp2 = tempNode1;
+			LinkListNode temp1 = temp2;
+			while(count>=0)
+			{
+				temp1=temp2;
+				LinkListNode temp3=temp2;
+				LinkListNode delTempNode = null;
+				while(temp2!=null)
+				{
+					delTempNode=temp2;
+					System.out.print(temp2.getNodeData()+"-v->");
+					temp2=temp2.getNextLink();
+				}
+				System.out.println();
+				System.out.print(delTempNode.getNodeData()+"-d->");
+				System.out.println();
+				delTempNode=null;
+				count--;
+				temp2=temp3;
+				//tempNode=temp2;
+				//System.out.println(temp2.getNodeData());
+			}
+			//while()
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+		}
+	}
 	
 	
 	
@@ -1161,8 +1232,9 @@ public class LinkedListImpl {
 //			indexNode1=indexNode1.getNextLink();
 //		}
 //		 System.out.println();
-		 LinkListNode indexNode=this.addTwoLinkedListNumber(listNode, listNode1);
-//			//LinkListNode indexNode1=this.reverseKthAlternateNode(listNode, 3);//(listNode,3);
+		//this.deleteNBodeFromEndOfTheLinkList(listNode);
+		 LinkListNode indexNode=this.insertLastNodeIntoHead(listNode);
+			//LinkListNode indexNode1=this.reverseKthAlternateNode(listNode, 3);//(listNode,3);
 			while(indexNode!=null)
 			{
 				System.out.print(indexNode.getNodeData()+"-->");
