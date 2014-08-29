@@ -32,7 +32,8 @@ public class LinkedListImpl {
 			{
 				l.insertNode1(Integer.parseInt(s));
 			}
-			l.print();
+			//l.print();
+			l.print1();
 		}
 		catch(Exception ex)
 		{
@@ -708,6 +709,7 @@ public class LinkedListImpl {
 	
 	
 	
+	//  
 	
 	private LinkListNode mergeAlternateNode(LinkListNode listNode,LinkListNode listNode1)
 	{
@@ -724,18 +726,31 @@ public class LinkedListImpl {
 				tempNode_1 = tempNode.getNextLink(); 
 				tempNode1_1 = tempNode1.getNextLink();	
 				tempNode.setNextLink(tempNode1);
-				
-				// Think About this line again...
 				tempNode1.setNextLink(tempNode_1);
-			
-				//System.out.println(tempNode.getNodeData());
 				tempNode=tempNode_1;
 				tempNode1=tempNode1_1;
 			}
 			//System.out.println(tempNode_1.getNodeData()+" > "+tempNode1_1.getNodeData());
 			tempNode=listNode;
+			/*  
+			 * 
+			 * from this line we r assuming our list size is not equal i.e any list can 
+			 * terminate first, even this logic will work if list have equal size... :) 
+			 * and also we can not put || operator in place of && operator in above loop
+			 *	
+			 */
 			
-			return tempNode;
+			/*******************************************************************/
+			LinkListNode temp = tempNode;
+			LinkListNode temp1 = temp;
+			while(temp.getNextLink()!=null)
+			{
+				temp=temp.getNextLink();
+			}
+			temp.setNextLink(tempNode1_1);
+			tempNode1_1=temp1;
+			/*******************************************************************/
+			return tempNode1_1;
 		}
 		catch(Exception ex)
 		{
@@ -1159,9 +1174,9 @@ public class LinkedListImpl {
 	}
 	private void print1()
 	{
-		//LinkListNode indexNode1=this.mergeAlternateNode(listNode, listNode1);
+		LinkListNode indexNode1=this.mergeAlternateNode(listNode, listNode1);
 		//LinkListNode indexNode1=this.mergeTwoSortedLinkListNode(listNode, listNode1);
-		LinkListNode indexNode1=this.recursiveApproacForMergingTwoSortedList(listNode, listNode1);
+		//LinkListNode indexNode1=this.recursiveApproacForMergingTwoSortedList(listNode, listNode1);
 		System.out.println();
 		while(indexNode1!=null)
 		{
