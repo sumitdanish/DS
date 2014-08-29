@@ -1,5 +1,8 @@
 package com.mypractice.org.LinkedListProgramm;
 
+import java.io.File;
+import java.util.Scanner;
+
 public class LinkedListImpl {
 
 	/**
@@ -18,55 +21,18 @@ public class LinkedListImpl {
 		try
 		{
 			LinkedListImpl l= new LinkedListImpl();
-			l.insertNode(7);
-//			l.inserIntoHead(12);
-//			l.inserIntoHead(13);
-//			l.inserIntoHead(14);
-//			l.inserIntoHead(15);
-			l.insertNode(5);
-			l.insertNode(9);
-			l.insertNode(4);
-			l.insertNode(6);
-//			l.insertNode(6);
-//			l.insertNode(3);
-//			l.insertNode(18);
-//			l.insertNode(9);
-//			l.insertNode(10);
-//			l.insertNode(21);
-//			l.insertNode(22);
-//			l.insertNode(3);
-//			l.insertNode(24);
-//			l.insertNode(6);
-//			l.insertNodeAfterAnyNode(14, 21);
-//			l.insertNodeAfterAnyNode(21,22);
-//			l.insertNodeAfterAnyNode(22,23);
-			
-			//l.replaceOneNodeFromAnotherNode(21,39);
-			
-			//System.out.println();
-//			l.insertNode1(1);
-//			l.insertNode1(16);
-////			l.inserIntoHead1(2);
-////			l.inserIntoHead1(4);
-////			l.inserIntoHead18);
-////			l.inserIntoHead1(21);
-			l.insertNode1(8);
-			l.insertNode1(4);
-			//l.insertNode1(2);
-			//l.insertNode1(25);
-			//l.print1();
+			Scanner sc = new Scanner(new File("linkList.txt"));
+			String[] a = sc.next().split("->");
+			for(String s : a)
+			{
+				l.insertNode(Integer.parseInt(s));
+			}
+			a = sc.next().split("->");
+			for(String s : a)
+			{
+				l.insertNode1(Integer.parseInt(s));
+			}
 			l.print();
-			
-			
-//			l.deleteNode(21);
-//			l.deleteNode(12);
-			//l.swapTwoDiffrentNode(3,5);
-			//l.print();
-			//l.reverseInSomeSpecificPart(4);
-			//l.printHalfNode(21);
-//			LinkListNode l1 = l.getNode(3);
-//			System.out.println(l1.getNodeData());
-			
 		}
 		catch(Exception ex)
 		{
