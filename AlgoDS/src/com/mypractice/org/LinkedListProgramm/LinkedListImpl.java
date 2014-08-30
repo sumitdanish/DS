@@ -13,9 +13,10 @@ public class LinkedListImpl {
 	
 	
 	LinkListNode listNode;
+	LinkListNode circularListNode;
 	LinkListNode listNode1;
 	LinkListNode listNode2;
-	LinkListNode m1;
+	LinkListNode te;
 	LinkListNode m2;
 	int size=0;
 	public static void main(String[] args) {
@@ -27,13 +28,14 @@ public class LinkedListImpl {
 			String[] a = sc.next().split("->");
 			for(String s : a)
 			{
-				l.insertNode(Integer.parseInt(s));
+				//l.insertNode(Integer.parseInt(s));
+				l.createHalfLoopList(Integer.parseInt(s));
 			}
-			a = sc.next().split("->");
-			for(String s : a)
-			{
-				l.insertNode1(Integer.parseInt(s));
-			}
+//			a = sc.next().split("->");
+//			for(String s : a)
+//			{
+//				l.insertNode1(Integer.parseInt(s));
+//			}
 			l.print();
 			//l.print1();
 		}
@@ -257,6 +259,180 @@ public class LinkedListImpl {
 		}
 	}
 	
+	
+	
+	private void createHalfLoopList(int nodeVal)
+	{
+		try
+		{
+			LinkListNode temp = new LinkListNode(nodeVal,null);
+			boolean flag=false;
+			if(nodeVal==11)
+			{
+				flag=true;
+			}
+			if(circularListNode==null)
+			{
+				circularListNode=temp;
+			}
+			else
+			{
+				LinkListNode temp1=circularListNode;
+				while(temp1.getNextLink()!=null)
+				{
+					temp1=temp1.getNextLink();
+				}
+				temp1.setNextLink(temp);
+				if(size==4)
+				{
+					te = temp1;
+				}
+				if(flag==true)
+				{
+					temp.setNextLink(te);
+				}
+				size++;
+			}
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+		}
+	}
+	
+	
+	
+	
+	private boolean detectCycleInLinkList(LinkListNode circularListNode)
+	{
+		try
+		{
+			LinkListNode slowPointer = circularListNode;
+			LinkListNode fastPointer = circularListNode;
+			boolean flag = false;
+			while(true)
+			{
+				if(slowPointer==null&&fastPointer==null)
+				{
+					flag=true;
+					break;
+				}
+				fastPointer = fastPointer.getNextLink();
+				if(fastPointer.getNextLink()!=null||fastPointer!=null)
+				{
+					fastPointer = fastPointer.getNextLink();
+				}
+				slowPointer = slowPointer.getNextLink();
+				if(fastPointer==slowPointer)
+				{
+					System.out.println("Loop Exist From Node-->"+slowPointer.getNodeData());
+					flag=true;
+					break;
+				}
+			}
+			return flag;
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+		}
+		return false;
+	}
+	
+	
+	
+	
+	/*
+	 * 
+	 * Given a linked list, reverse alternate nodes and append at the end
+	 * By Using Spliting of alternate node of link list and then reversing 2nd splited 
+	 * link list and then add first node from the head of the 2nd reversed list
+	 * 
+	 */
+	private LinkListNode reverseAlternateNodeAndAppendAtTheEnd1(LinkListNode listNode)
+	{
+		try
+		{
+			LinkListNode tempNode = listNode;
+			LinkListNode tempNode1 = listNode.getNextLink();
+			LinkListNode temp = tempNode;
+			LinkListNode temp1 = tempNode1;
+			LinkListNode temp_1=temp;
+			while(tempNode!=null&&tempNode.getNextLink()!=null)
+			{
+				tempNode.setNextLink(tempNode.getNextLink().getNextLink());
+				if(tempNode1!=null&&tempNode1.getNextLink()!=null)
+				{
+					tempNode1.setNextLink(tempNode1.getNextLink().getNextLink());
+					tempNode1=tempNode1.getNextLink();
+				}
+				tempNode=tempNode.getNextLink();
+			}
+			while(temp.getNextLink()!=null)
+			{
+				temp=temp.getNextLink();
+			}
+			LinkListNode ll = temp1.getNextLink();
+			LinkListNode ll2 = null;
+			while(ll!=null)
+			{
+				ll=temp1.getNextLink();
+				temp1.setNextLink(ll2);
+				ll2=temp1;
+				temp1=ll;
+			}
+			temp.setNextLink(ll2);
+			return temp_1;
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+		}
+		return null;
+	}
+	
+	
+	
+	
+	
+	/*
+	 * Given a linked list, reverse alternate nodes and append at the end
+	 * By Using geeksforgeeks algo
+	 * 
+	 */
+	
+	private LinkListNode reverseAlternateNodeAndAppendAtTheEnd(LinkListNode listNode)
+	{
+		try
+		{
+			LinkListNode tempNode = listNode;
+			LinkListNode tempNode1 = tempNode.getNextLink();
+			if(tempNode!=null&&tempNode.getNextLink()!=null&&tempNode.getNextLink().getNextLink()!=null)
+			{
+				tempNode.setNextLink(tempNode.getNextLink().getNextLink());
+			}
+			tempNode=tempNode.getNextLink();
+			tempNode1.setNextLink(null);
+			while(tempNode!=null&&tempNode.getNextLink()!=null)
+			{
+				LinkListNode temp=tempNode.getNextLink().getNextLink();
+				tempNode.getNextLink().setNextLink(tempNode1);
+				tempNode1 = tempNode.getNextLink();
+				tempNode.setNextLink(temp);
+				if(temp!=null)
+				{
+					tempNode=temp;
+				}
+			}
+			tempNode.setNextLink(tempNode1);
+			return listNode;
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+		}
+		return null;
+	}
 	
 	
 	
@@ -1215,6 +1391,14 @@ public class LinkedListImpl {
 	
 	private void print()
 	{
+		if(this.detectCycleInLinkList(circularListNode))
+		{
+			System.out.println("Loop Exist");
+		}
+		else
+		{
+			System.out.println("Sooooooo....... Sorryyyyyyyyyyy.... ");
+		}
 		//LinkListNode indexNode1=this.reverseInSomeSpecificPart(listNode,3);
 		//LinkListNode indexNode1=this.reverseLinkListNode(listNode);
 		//LinkListNode indexNode1=this.reverserKthAlternateNodeUsingLoop(listNode,3); 
@@ -1233,15 +1417,37 @@ public class LinkedListImpl {
 //		}
 //		 System.out.println();
 		//this.deleteNBodeFromEndOfTheLinkList(listNode);
-		 LinkListNode indexNode=this.insertLastNodeIntoHead(listNode);
-			//LinkListNode indexNode1=this.reverseKthAlternateNode(listNode, 3);//(listNode,3);
-			while(indexNode!=null)
-			{
-				System.out.print(indexNode.getNodeData()+"-->");
-				indexNode=indexNode.getNextLink();
-			}
+		
+		 //LinkListNode indexNode=this.reverseAlternateNodeAndAppendAtTheEnd1(listNode);
+//		 LinkListNode indexNode=circularListNode;
+//		 int i=0;
+////			//LinkListNode indexNode1=this.reverseKthAlternateNode(listNode, 3);//(listNode,3);
+//			while(indexNode!=null)
+//			{
+//				if(indexNode.getNodeData()==5)
+//				{
+//					if(i>1)
+//					{
+//						break;
+//					}
+//					i++;
+//					
+//				}
+//				System.out.print(indexNode.getNodeData()+"-->");
+//				indexNode=indexNode.getNextLink();
+//			}
 		//this.addTwoLinkedListNumber(listNode, listNode1);
-		System.out.println();
+//		System.out.println();
+//		
+//		 LinkListNode indexNode1=this.getSecondSplit();
+//			//LinkListNode indexNode1=this.reverseKthAlternateNode(listNode, 3);//(listNode,3);
+//			while(indexNode1!=null)
+//			{
+//				System.out.print(indexNode1.getNodeData()+"-->");
+//				indexNode1=indexNode1.getNextLink();
+//			}
+//		//this.addTwoLinkedListNumber(listNode, listNode1);
+//		System.out.println();
 		
 	}
 	private void print1()
