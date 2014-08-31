@@ -307,9 +307,13 @@ public class LinkedListImpl {
 	{
 		try
 		{
+			int f=0;
+			int s=0;
 			LinkListNode slowPointer = circularListNode;
 			LinkListNode fastPointer = circularListNode;
+			LinkListNode slowPointer1 = slowPointer;
 			boolean flag = false;
+			int k=0;
 			while(true)
 			{
 				if(slowPointer==null&&fastPointer==null)
@@ -321,14 +325,52 @@ public class LinkedListImpl {
 				if(fastPointer.getNextLink()!=null||fastPointer!=null)
 				{
 					fastPointer = fastPointer.getNextLink();
+					f++;
 				}
 				slowPointer = slowPointer.getNextLink();
+				if(slowPointer!=null)
+				{
+					s++;
+				}
 				if(fastPointer==slowPointer)
 				{
-					System.out.println("Loop Exist From Node-->"+slowPointer.getNodeData());
+					System.out.println("Loop Exist at Node-->"+slowPointer.getNodeData()+" |||| "+fastPointer.getNodeData()+" > > > "+s+"  < < "+f+" : : "+k);
+					/*----------Algo for finding starting point in the loop of link list---------
+					 * 
+					 *   when both pointer meet at some node e.g say X then, we will initialise slow pointer 
+					 *   to the head of the original link list and fast pointer would be initialise from node X.
+					 *   Then we will increment both pointer i.e slow pointer and fast pointer. and suppose they 
+					 *   again meet at some node say Y the that node (Y) will be initial node of the loop in the link list 
+					 *    
+					 */
+					/********************************** CODE FOR GETTING INITIAL NODE IN THE LLOP****************************/
+					LinkListNode ll = null;
+					slowPointer = circularListNode;
+					while(slowPointer != fastPointer)
+					{
+						slowPointer = slowPointer.getNextLink();
+						fastPointer = fastPointer.getNextLink();
+					}
+					/*******************************************************FINISH******************************************/
+					/*******************************************************CODE FOR REMOVING THE LOOOP**********************/
+					ll = fastPointer.getNextLink();
+					while(ll.getNextLink()!=slowPointer)
+					{
+						ll=ll.getNextLink();
+					}
+					ll.setNextLink(null);
+					while(slowPointer1!=null)
+					{
+						System.out.print(slowPointer1.getNodeData()+"--->");
+						slowPointer1=slowPointer1.getNextLink();
+					}
+					/*******************************************************FINISH******************************************/
+					System.out.println();
+					System.out.println("Starting Node of the loop -->"+slowPointer.getNodeData()+" |||| "+fastPointer.getNodeData()+" > > > "+s+"  < < "+f+" : : "+k+" :-) "+ll.getNodeData());
 					flag=true;
 					break;
 				}
+				k++;
 			}
 			return flag;
 		}
@@ -464,7 +506,7 @@ public class LinkedListImpl {
 	
 	
 	
-	//try this method again...
+	//try this method again... We cant traverse back in singly link list so that operation is not possible;
 	
 	private void deleteNBodeFromEndOfTheLinkList(LinkListNode listNode)
 	{
