@@ -16,6 +16,7 @@ public class LinkedListImpl {
 	LinkListNode circularListNode;
 	LinkListNode listNode1;
 	LinkListNode listNode2;
+	LinkListNode interSectionList;
 	LinkListNode te;
 	LinkListNode m2;
 	int size=0;
@@ -28,14 +29,17 @@ public class LinkedListImpl {
 			String[] a = sc.next().split("->");
 			for(String s : a)
 			{
-				//l.insertNode(Integer.parseInt(s));
-				l.createHalfLoopList(Integer.parseInt(s));
+				l.insertNode(Integer.parseInt(s));
+				//l.createHalfLoopList(Integer.parseInt(s));
 			}
-//			a = sc.next().split("->");
-//			for(String s : a)
-//			{
-//				l.insertNode1(Integer.parseInt(s));
-//			}
+			sc.close();
+			a=null;
+			sc = new Scanner(new File("linkList1.txt"));
+			a = sc.next().split("->");
+			for(String s : a)
+			{
+				l.insertNode1(Integer.parseInt(s));
+			}
 			l.print();
 			//l.print1();
 		}
@@ -175,6 +179,40 @@ public class LinkedListImpl {
 		}
 	}
 	
+	
+	
+	private void insertNodeForIntersection(int nodeVal)
+	{
+		try
+		{
+			LinkListNode ln = new LinkListNode(nodeVal,null);
+			if(interSectionList==null)
+			{
+				ln.setNextLink(interSectionList);
+				interSectionList=ln;
+				size++;
+			}
+			else
+			{
+				LinkListNode tempLn = interSectionList;
+				while(tempLn.getNextLink()!=null)
+				{
+					tempLn=tempLn.getNextLink();
+				}
+				tempLn.setNextLink(ln);
+				size++;
+			}
+			
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+		}
+	}
+	
+	
+	
+	
 	private void insertNodeAfterAnyNode(int nodeIndex,int nodeVal)
 	{
 		try
@@ -259,6 +297,91 @@ public class LinkedListImpl {
 		}
 	}
 	
+	private LinkListNode unionOfLinkList(LinkListNode listNode,LinkListNode listNode1)
+	{
+		try
+		{
+			
+			LinkListNode re = null;
+			LinkListNode tempNode = listNode;
+			
+			while(tempNode!=null)
+			{
+				this.insertNodeForIntersection(tempNode.getNodeData());
+				tempNode=tempNode.getNextLink();
+			}
+			LinkListNode node=interSectionList;
+			LinkListNode node1=node;
+			re=listNode1;
+			LinkListNode re1 = re;
+			while(re1!=null)
+			{
+				if(!this.isNodePresent(node1,re.getNodeData()))
+				{
+					this.insertNodeForIntersection(re1.getNodeData());
+				}
+				re1=re1.getNextLink();
+			}
+			return node;
+			
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+		}
+		return null;
+	}
+	
+	
+	private boolean isNodePresent(LinkListNode listNode,int nodeVal)
+	{
+		try
+		{
+			LinkListNode ll = listNode;
+			while(ll!=null)
+			{
+				if(ll.getNodeData()==nodeVal)
+				{
+					return true;
+				}
+				ll=ll.getNextLink();
+				return false;
+			}
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+		}
+		return false;
+	}
+	
+	
+	private LinkListNode intersectionList(LinkListNode listNode,LinkListNode listNode1)
+	{
+		try
+		{
+			LinkListNode tempNode=listNode;
+			while(tempNode!=null)
+			{
+				LinkListNode tempNode1=listNode1;
+				while(tempNode1!=null)
+				{
+					if(tempNode.getNodeData()==tempNode1.getNodeData())
+					{
+						this.insertNodeForIntersection(tempNode.getNodeData());
+					}
+					tempNode1=tempNode1.getNextLink();
+				}
+				tempNode=tempNode.getNextLink();
+			}
+			return interSectionList;
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+		}
+		return null;
+	}
 	
 	
 	private void createHalfLoopList(int nodeVal)
@@ -1433,14 +1556,14 @@ public class LinkedListImpl {
 	
 	private void print()
 	{
-		if(this.detectCycleInLinkList(circularListNode))
-		{
-			System.out.println("Loop Exist");
-		}
-		else
-		{
-			System.out.println("Sooooooo....... Sorryyyyyyyyyyy.... ");
-		}
+//		if(this.detectCycleInLinkList(circularListNode))
+//		{
+//			System.out.println("Loop Exist");
+//		}
+//		else
+//		{
+//			System.out.println("Sooooooo....... Sorryyyyyyyyyyy.... ");
+//		}
 		//LinkListNode indexNode1=this.reverseInSomeSpecificPart(listNode,3);
 		//LinkListNode indexNode1=this.reverseLinkListNode(listNode);
 		//LinkListNode indexNode1=this.reverserKthAlternateNodeUsingLoop(listNode,3); 
@@ -1451,12 +1574,12 @@ public class LinkedListImpl {
 		//LinkListNode indexNode1=this.swapTwoDiffrentNodeUsingNodeDataField(listNode); 
 	    //LinkListNode indexNode1=this.swapTwoDiffrentNodeUsingNode_NextOrAddressField(listNode);
 		//this.splitAlternatNodeInList(listNode);
-		 //LinkListNode indexNode1=this.reverseKthAlternateNode(listNode, 3);//(listNode,3);
-//		while(indexNode1!=null)
-//		{
-//			System.out.print(indexNode1.getNodeData()+"-->");
-//			indexNode1=indexNode1.getNextLink();
-//		}
+		 LinkListNode indexNode1=this.unionOfLinkList(listNode, listNode1);//(listNode,3); ;
+		while(indexNode1!=null)
+		{
+			System.out.print(indexNode1.getNodeData()+"-->");
+			indexNode1=indexNode1.getNextLink();
+		}
 //		 System.out.println();
 		//this.deleteNBodeFromEndOfTheLinkList(listNode);
 		
