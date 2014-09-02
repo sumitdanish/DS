@@ -3,8 +3,6 @@ package com.mypractice.org.LinkedListProgramm;
 import java.io.File;
 import java.util.Scanner;
 
-import com.Test.LinkList.LinkedListNode;
-
 public class LinkedListImpl {
 
 	/**
@@ -248,6 +246,112 @@ public class LinkedListImpl {
 		}
 	}
 	
+	
+	
+	private LinkListNode deleteNextNodeOfMaxNode(LinkListNode listNode)
+	{
+		try
+		{
+			LinkListNode tempNode = listNode;
+			LinkListNode reverseList = null;
+			LinkListNode tempNode1 = tempNode;
+			while(tempNode1!=null)
+			{
+				tempNode1 = tempNode.getNextLink();
+				tempNode.setNextLink(reverseList);
+				reverseList = tempNode;
+				tempNode = tempNode1;
+			}
+			LinkListNode reverNode = reverseList;
+			LinkListNode reverNode1 = reverNode;
+			while(reverNode1!=null&&reverNode1.getNextLink()!=null)
+			{
+				if(reverNode1!=null)
+				{
+					if(reverNode1.getNodeData()>reverNode1.getNextLink().getNodeData())
+					{
+						LinkListNode reveNode = reverNode1.getNextLink().getNextLink();
+						reverNode1.setNextLink(reverNode1.getNextLink().getNextLink());
+						reveNode = null;
+					}
+					/*
+					 * Why this else is required --> suppose above if condition is not true 
+					 * then any how we want move our pointer one step frwd so for that we 
+					 * want else condition for movinf our pointer one step frwd
+					 * 
+					 */
+					else
+					{
+						reverNode1=reverNode1.getNextLink();
+					}
+				}
+			}
+			LinkListNode reverseList1  = null;
+			LinkListNode reverseList_1 = reverNode;
+			while(reverseList_1!=null)
+			{
+				reverseList_1 = reverNode.getNextLink();
+				reverNode.setNextLink(reverseList1);
+				reverseList1 = reverNode;
+				reverNode = reverseList_1;
+			}
+			return reverseList1;
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+		}
+		return null;
+	}
+	
+	
+	private LinkListNode deleteNextNodeOfMaxNode_usingDoubleLoop(LinkListNode listNode)
+	{
+		try
+		{
+			LinkListNode tempNode = listNode;
+			LinkListNode tempNode1 = tempNode;
+			LinkListNode tempNode11 = tempNode1;
+			LinkListNode tempNode_1 = tempNode;
+			while(tempNode1!=null)
+			{
+				tempNode_1=tempNode1;
+				LinkListNode tem = null;
+				boolean flag = false;
+				while(tempNode_1!=null)
+				{
+					if(tempNode1.getNodeData()<tempNode_1.getNodeData())
+					{ 
+						LinkListNode temp = tempNode1;
+						tem=tempNode1.getNextLink();
+						System.out.println(tem.getNodeData());
+						flag=true;
+						temp=null;
+						break;
+					}
+					tempNode_1=tempNode_1.getNextLink();
+				}
+				if(flag==false)
+				{
+					tempNode1=tempNode1.getNextLink();
+				}
+				if(flag==true&&tem!=null)
+				{
+					tempNode1=tem;
+					System.out.println(">>>>>>>>"+tempNode1.getNodeData());
+				}
+			}
+			return tempNode11;
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+		}
+		return null;
+	}
+	
+	
+	
 	private void deleteNode(int deletedNodeVal)
 	{
 		try
@@ -316,7 +420,7 @@ public class LinkedListImpl {
 			LinkListNode re1 = re;
 			while(re1!=null)
 			{
-				if(!this.isNodePresent(node1,re.getNodeData()))
+				if(!this.isNodePresent(node1,re1.getNodeData()))
 				{
 					this.insertNodeForIntersection(re1.getNodeData());
 				}
@@ -1574,7 +1678,9 @@ public class LinkedListImpl {
 		//LinkListNode indexNode1=this.swapTwoDiffrentNodeUsingNodeDataField(listNode); 
 	    //LinkListNode indexNode1=this.swapTwoDiffrentNodeUsingNode_NextOrAddressField(listNode);
 		//this.splitAlternatNodeInList(listNode);
-		 LinkListNode indexNode1=this.unionOfLinkList(listNode, listNode1);//(listNode,3); ;
+		 //LinkListNode indexNode1=this.unionOfLinkList(listNode, listNode1);//(listNode,3); ;
+		// LinkListNode indexNode1=this.deleteNextNodeOfMaxNode(listNode);//(listNode,3); ;
+		 LinkListNode indexNode1=this.deleteNextNodeOfMaxNode_usingDoubleLoop(listNode);//(listNode,3); ;
 		while(indexNode1!=null)
 		{
 			System.out.print(indexNode1.getNodeData()+"-->");
