@@ -30,6 +30,8 @@ public class LinkedListImpl {
 				l.insertNode(Integer.parseInt(s));
 				//l.createHalfLoopList(Integer.parseInt(s));
 			}
+//			l.deleteNode(11);
+//			l.print();
 			sc.close();
 			a=null;
 			sc = new Scanner(new File("linkList1.txt"));
@@ -305,43 +307,48 @@ public class LinkedListImpl {
 	}
 	
 	
+	private boolean idealLinkdList(LinkListNode listNode,LinkListNode listNode1)
+	{
+		try
+		{
+			return ((listNode==null&&listNode1==null)||((listNode.getNodeData()==listNode1.getNodeData())&&idealLinkdList(listNode.getNextLink(), listNode1.getNextLink())));
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+		}
+		return false;
+	}
+	
+	
+	
+	
 	private LinkListNode deleteNextNodeOfMaxNode_usingDoubleLoop(LinkListNode listNode)
 	{
 		try
 		{
 			LinkListNode tempNode = listNode;
-			LinkListNode tempNode1 = tempNode;
-			LinkListNode tempNode11 = tempNode1;
-			LinkListNode tempNode_1 = tempNode;
-			while(tempNode1!=null)
+			LinkListNode tempNode1 = null;
+			LinkListNode tempNode11 = tempNode;
+			LinkListNode tempNode_1 = tempNode11;
+			while(tempNode11!=null&&tempNode11.getNextLink()!=null)
 			{
-				tempNode_1=tempNode1;
-				LinkListNode tem = null;
-				boolean flag = false;
-				while(tempNode_1!=null)
+				if(tempNode11.getNodeData()<tempNode11.getNextLink().getNodeData())
 				{
-					if(tempNode1.getNodeData()<tempNode_1.getNodeData())
-					{ 
-						LinkListNode temp = tempNode1;
-						tem=tempNode1.getNextLink();
-						System.out.println(tem.getNodeData());
-						flag=true;
-						temp=null;
-						break;
-					}
-					tempNode_1=tempNode_1.getNextLink();
+					
+					LinkListNode temp = tempNode11.getNextLink();
+					System.out.println(temp.getNodeData());
+					tempNode11.setNextLink(temp.getNextLink());
+					tempNode11=temp;
+					//tempNode11=null;
+					temp=null;
 				}
-				if(flag==false)
+				else
 				{
-					tempNode1=tempNode1.getNextLink();
-				}
-				if(flag==true&&tem!=null)
-				{
-					tempNode1=tem;
-					System.out.println(">>>>>>>>"+tempNode1.getNodeData());
+					tempNode11=tempNode11.getNextLink();
 				}
 			}
-			return tempNode11;
+			return tempNode_1;
 		}
 		catch(Exception ex)
 		{
@@ -385,8 +392,8 @@ public class LinkedListImpl {
 				{
 					if(tempNode.getNextLink().getNodeData()==deletedNodeVal)
 					{
-						tempNode1 = tempNode.getNextLink();
-						tempNode.setNextLink(tempNode1.getNextLink());
+						//tempNode1 = tempNode.getNextLink();
+						tempNode.setNextLink(tempNode.getNextLink().getNextLink());
 						tempNode=null;
 						size--;
 						break;
@@ -1679,13 +1686,21 @@ public class LinkedListImpl {
 	    //LinkListNode indexNode1=this.swapTwoDiffrentNodeUsingNode_NextOrAddressField(listNode);
 		//this.splitAlternatNodeInList(listNode);
 		 //LinkListNode indexNode1=this.unionOfLinkList(listNode, listNode1);//(listNode,3); ;
-		// LinkListNode indexNode1=this.deleteNextNodeOfMaxNode(listNode);//(listNode,3); ;
-		 LinkListNode indexNode1=this.deleteNextNodeOfMaxNode_usingDoubleLoop(listNode);//(listNode,3); ;
-		while(indexNode1!=null)
+		//this.idealLinkdList(listNode, listNode1);//(listNode,3); ;  
+		if(this.idealLinkdList(listNode, listNode1))
 		{
-			System.out.print(indexNode1.getNodeData()+"-->");
-			indexNode1=indexNode1.getNextLink();
+			System.out.println("Hi he is my bro");
 		}
+		else
+		{
+			System.out.println("FCUK");
+		}
+		// LinkListNode indexNode1=this.deleteNextNodeOfMaxNode_usingDoubleLoop(listNode);//(listNode,3); ;
+//		while(indexNode1!=null)
+//		{
+//			System.out.print(indexNode1.getNodeData()+"-->");
+//			indexNode1=indexNode1.getNextLink();
+//		}
 //		 System.out.println();
 		//this.deleteNBodeFromEndOfTheLinkList(listNode);
 		
